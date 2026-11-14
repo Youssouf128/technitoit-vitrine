@@ -10,6 +10,19 @@ npm run dev        # http://localhost:3000
 npm run build && npm start   # build de production
 ```
 
+## Docker
+
+```bash
+docker compose up -d --build   # construit l'image et lance le conteneur → http://localhost:3000
+docker compose logs -f         # journaux
+docker compose down            # arrêt
+PORT=8080 docker compose up -d # exposer sur un autre port
+```
+
+L'image (`Dockerfile`, multi-étapes, `node:22-alpine`) embarque uniquement le serveur autonome de Next.js
+(`output: "standalone"`), tourne avec un utilisateur non-root et expose un healthcheck. Le cache des images
+optimisées est conservé dans le volume `next-cache`.
+
 ## Structure
 
 ```

@@ -1,0 +1,20 @@
+name: technitoit-vitrine
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: technitoit-vitrine:latest
+    container_name: technitoit-vitrine
+    restart: unless-stopped
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      NODE_ENV: production
+    volumes:
+      # Conserve les images optimisées entre deux redémarrages
+      - next-cache:/app/.next/cache
+
+volumes:
+  next-cache:
