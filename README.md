@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Technitoit (Next.js)
 
-## Getting Started
+Refonte du site [technitoit.com](https://www.technitoit.com/) en **Next.js 16 (App Router) + TypeScript + Tailwind CSS 4**.
 
-First, run the development server:
+## Démarrer
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
+npm run build && npm start   # build de production
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+src/
+  app/
+    page.tsx                 Accueil
+    actualites/              Liste des 72 articles (onglets par catégorie, pagination) + pages article
+    [...slug]/page.tsx       Pages prestations, régions, départements, infos (générées statiquement)
+    devis-gratuit/           Configurateur de devis plein écran
+    agence/                  Recherche d'agence + carte des départements
+    recherche/               Résultats de recherche
+    api/devis/               POST – validation + réception des demandes de devis
+    api/newsletter/          POST – inscription newsletter
+    sitemap.ts, robots.ts    SEO
+  components/
+    layout/                  Header (méga-menu, header collant, tiroirs mobiles), Footer, PageHero…
+    home/                    Hero, avis clients, avant/après, accordéon prestations, configurateur, actualités, presse, carte…
+    ui/                      Logo SVG, icônes, titre de section
+  data/
+    site.ts                  Menus, avis, articles, logos presse, régions, liens du footer
+    configurator.ts          Étapes et options du devis + validation partagée client/serveur
+    france-map.ts            Tracés SVG des départements
+    articles.ts              Métadonnées des 72 articles (titre, date, catégorie, image…)
+    articles-content.json    Contenu des articles en blocs typés (texte riche, images, tableau, accordéon…)
+    contact.ts               Formulaire de contact des articles + validation
+  lib/pages.ts               Résolution des routes génériques (titres, fil d'Ariane)
+public/images/               Visuels du site
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Pages reproduites depuis le CMS d'origine
 
-## Learn More
+`/renovation-toiture`, `/renovation-facade`, `/isolation`, `/energie` et `/amenagement-exterieur` sont des copies fidèles
+des pages Storyblok d'origine : leur HTML a été converti en arbre JSON (`src/data/pages/*.json`, classes conservées)
+puis rendu par `src/components/cms/CmsTree.tsx`. Les parties interactives sont remplacées par nos composants
+(configurateur de devis, comparateur avant/après, accordéons, fond gris `ContainerBackground`).
 
-To learn more about Next.js, take a look at the following resources:
+Pour importer une autre page :
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+mkdir -p /tmp/cms && curl -sL https://www.technitoit.com/<slug> -o /tmp/cms/<slug>.html
+python3 scripts/cms-import/convert_pages.py /tmp/cms src/data/pages <slug>
+# puis : télécharger les images listées dans src/data/pages/_images.json vers public/images/pages/,
+# ajouter le JSON dans src/lib/cms-pages.ts et le chemin dans src/data/cms-routes.ts
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Les vidéos (30 à 45 Mo chacune) restent servies par le CDN d'origine.
 
-## Deploy on Vercel
+## Contenus et intégrations à brancher
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Devis / newsletter** : les routes `src/app/api/*` valident les données puis les journalisent. Ajoutez l'envoi vers votre CRM ou outil d'emailing à l'emplacement `TODO`.
+- **Consentement cookies** : le bouton « CONSENTEMENT » du footer (`ConsentButton.tsx`) ouvre Didomi s'il est chargé.
+- **Pages internes** : les pages prestations, articles et informations utilisent un gabarit commun. Leurs textes détaillés sont à compléter (ou à brancher sur un CMS, par ex. Storyblok).
+- Les couleurs de la charte sont déclarées dans `src/app/globals.css` (`--color-tt-*`).

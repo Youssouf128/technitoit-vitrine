@@ -1,0 +1,259 @@
+{
+ "housing": [
+  {
+   "value": "Primary residence house",
+   "label": "Maison",
+   "icon": "/images/configurator/logement-maison.svg"
+  },
+  {
+   "value": "Appartment",
+   "label": "Appartement",
+   "icon": "/images/configurator/logement-appartement.svg"
+  }
+ ],
+ "profiles": [
+  {
+   "value": "renter",
+   "label": "Locataire",
+   "icon": "/images/configurator/profil-locataire.svg"
+  },
+  {
+   "value": "owner",
+   "label": "Propriétaire",
+   "icon": "/images/configurator/profil-proprietaire.svg"
+  }
+ ],
+ "categories": [
+  {
+   "id": "758a94e6-c66e-83d1-bc9c-295b411cc421",
+   "label": "Toiture",
+   "icon": "/images/configurator/cat-toiture.svg",
+   "products": [
+    {
+     "id": "42edda46-dd87-48f6-a1c2-0ced7ac6076e",
+     "label": "Peinture toiture",
+     "icon": "/images/configurator/toiture-peinture-toiture.svg"
+    },
+    {
+     "id": "ee8bda08-0c12-4180-8eef-38ce6dd88c2f",
+     "label": "Hydrofuge de toiture",
+     "icon": "/images/configurator/toiture-hydrofuge-de-toiture.svg"
+    },
+    {
+     "id": "3fe1d794-9792-48ab-a407-9e12f63f6bff",
+     "label": "Nettoyage toiture",
+     "icon": "/images/configurator/toiture-nettoyage-toiture.svg"
+    },
+    {
+     "id": "aa8bda08-0c12-4180-8eef-38ce6dd88c2f",
+     "label": "Réfection de toiture",
+     "icon": "/images/configurator/toiture-refection-de-toiture.svg"
+    },
+    {
+     "id": "74b4905d-6b90-4421-bb7f-4a064346dc3e",
+     "label": "Démoussage toiture",
+     "icon": "/images/configurator/toiture-demoussage-toiture.svg"
+    },
+    {
+     "id": "76a897b3-c368-469d-8121-0b8d658fbef8",
+     "label": "Traitement toiture",
+     "icon": "/images/configurator/toiture-traitement-toiture.svg"
+    },
+    {
+     "id": "123456d8-a717-4f8e-8a2e-b5bc09c0c8cd",
+     "label": "Accessoires et finition",
+     "icon": "/images/configurator/toiture-accessoires-et-finition.svg"
+    },
+    {
+     "id": "0e9c7b98-3e87-4ff8-9d42-8cfb362eb795",
+     "label": "Remplacement de couverture",
+     "icon": "/images/configurator/toiture-remplacement-de-couverture.svg"
+    },
+    {
+     "id": "2ca159e5-c66f-41a2-88b7-6b4afc99308d",
+     "label": "Nettoyage toiture amiante",
+     "icon": "/images/configurator/toiture-nettoyage-toiture-amiante.svg"
+    },
+    {
+     "id": "293546d8-a717-4f8e-8a2e-b5bc09c0c8cd",
+     "label": "Traitement de bois charpente",
+     "icon": "/images/configurator/toiture-traitement-de-bois-charpente.svg"
+    }
+   ]
+  },
+  {
+   "id": "1a469d6e-558b-4848-8a5c-8680d7dfdb5d",
+   "label": "Facade",
+   "icon": "/images/configurator/cat-facade.svg",
+   "products": [
+    {
+     "id": "77a897b3-c368-469d-8123-0b8d658fbef8",
+     "label": "Cuvelage",
+     "icon": "/images/configurator/facade-cuvelage.svg"
+    },
+    {
+     "id": "b77056ed-9cd7-4542-84a5-bad56fb5c4e8",
+     "label": "Entretien façade",
+     "icon": "/images/configurator/facade-entretien-facade.svg"
+    },
+    {
+     "id": "05c61737-0c5c-4d57-aa2b-f9f8b69fbc5a",
+     "label": "Hydrofuge façade",
+     "icon": "/images/configurator/facade-hydrofuge-facade.svg"
+    },
+    {
+     "id": "b77056ed-9cd7-4542-84a5-bad56fb5c4eb",
+     "label": "Nettoyage façade",
+     "icon": "/images/configurator/facade-nettoyage-facade.svg"
+    },
+    {
+     "id": "3a6e2958-ae7c-4208-bee9-69adf6bc328b",
+     "label": "Démoussage façade",
+     "icon": "/images/configurator/facade-demoussage-facade.svg"
+    },
+    {
+     "id": "9c35bbfd-7f1d-43b6-a24e-aa2aa1e98720",
+     "label": "Ravalement façade",
+     "icon": "/images/configurator/facade-ravalement-facade.svg"
+    },
+    {
+     "id": "6bddd266-cf3f-41eb-ac50-1cddd21a4423",
+     "label": "Revêtement façade",
+     "icon": "/images/configurator/facade-revetement-facade.svg"
+    },
+    {
+     "id": "b476847f-cc11-436c-982a-b23bb6d19bd0",
+     "label": "Traitement d'humidité",
+     "icon": "/images/configurator/facade-traitement-d-humidite.svg"
+    }
+   ]
+  },
+  {
+   "id": "7ab32d0c-5853-4e5c-85c7-6ad5f0684d5a",
+   "label": "Isolation",
+   "icon": "/images/configurator/cat-isolation.svg",
+   "products": [
+    {
+     "id": "11a897b3-c368-469d-8123-0b8d658fbef8",
+     "label": "Isolation des murs",
+     "icon": "/images/configurator/isolation-isolation-des-murs.svg"
+    },
+    {
+     "id": "22a897b3-c368-469d-8123-0b8d658fbef8",
+     "label": "Isolation des sols",
+     "icon": "/images/configurator/isolation-isolation-des-sols.svg"
+    },
+    {
+     "id": "33a897b3-c368-469d-8123-0b8d658fbef8",
+     "label": "Isolation des combles",
+     "icon": "/images/configurator/isolation-isolation-des-combles.svg"
+    },
+    {
+     "id": "44a897b3-c368-469d-8123-0b8d658fbef8",
+     "label": "Isolation de toiture",
+     "icon": "/images/configurator/isolation-isolation-de-toiture.svg"
+    },
+    {
+     "id": "55a897b3-c368-469d-8123-0b8d658fbef8",
+     "label": "Isolation des sous-sols",
+     "icon": "/images/configurator/isolation-isolation-des-sous-sols.svg"
+    }
+   ]
+  },
+  {
+   "id": "a7e32d0c-5853-4e5c-85c7-6ad5f062b56a",
+   "label": "Énergie solaire",
+   "icon": "/images/configurator/cat-energie-solaire.svg",
+   "products": [
+    {
+     "id": "fffc9f94-39d0-4d35-a39c-e3a52ed82d0c",
+     "label": "Panneaux solaires",
+     "icon": "/images/configurator/energie-solaire-panneaux-solaires.svg"
+    },
+    {
+     "id": "fffc9f94-39d0-4d35-a39c-e3a52ed82d9c",
+     "label": "Autoconsommation solaire",
+     "icon": "/images/configurator/energie-solaire-autoconsommation-solaire.svg"
+    },
+    {
+     "id": "88a897b3-c368-469d-8125-0b8d658fbef8",
+     "label": "Autoconsommation solaire avec récupération d'air chaud",
+     "icon": "/images/configurator/energie-solaire-autoconsommation-solaire-avec-recuperation-d-air-chaud.svg"
+    },
+    {
+     "id": "20f32fcf-d999-4415-996b-3f1a6e515a28",
+     "label": "Chauffe-eau thermodynamique solaire",
+     "icon": "/images/configurator/energie-solaire-chauffe-eau-thermodynamique-solaire.svg"
+    }
+   ]
+  },
+  {
+   "id": "3ef32d0c-4353-4e5c-85c7-6ad5f06842ad",
+   "label": "Chauffage",
+   "icon": "/images/configurator/cat-chauffage.svg",
+   "products": [
+    {
+     "id": "0d2aac96-38ba-407f-8b24-41f3d6facf6a",
+     "label": "Pompe à chaleur air/eau",
+     "icon": "/images/configurator/chauffage-pompe-a-chaleur-air-eau.svg"
+    },
+    {
+     "id": "b58b0df3-0f3f-4979-a6cd-58c02508bdaa",
+     "label": "Chauffage à inertie",
+     "icon": "/images/configurator/chauffage-chauffage-a-inertie.svg"
+    },
+    {
+     "id": "12a519f7-1d98-4e22-823a-1d0bb9ce3025",
+     "label": "Climatisation réversible air/air",
+     "icon": "/images/configurator/chauffage-climatisation-reversible-air-air.svg"
+    },
+    {
+     "id": "89528efe-7f30-42bb-b23a-c0aae827a282",
+     "label": "Chauffe-eau thermo dynamique",
+     "icon": "/images/configurator/chauffage-chauffe-eau-thermo-dynamique.svg"
+    }
+   ]
+  },
+  {
+   "id": "41b32d0c-4353-4e5c-85c7-6ad5f06849ce",
+   "label": "Ventilation",
+   "icon": "/images/configurator/cat-ventilation.svg",
+   "products": [
+    {
+     "id": "7b239afc-a4c8-4faa-abdf-955f6407a255",
+     "label": "Ventilation VCI (Ventilation Centralisée par Insufflation)",
+     "icon": "/images/configurator/ventilation-ventilation-vci-ventilation-centralisee-par-insufflation.svg"
+    },
+    {
+     "id": "26dc2dbd-d87a-429e-ae37-edfdcc88363d",
+     "label": "Ventilation VEH Ecopur pour l'habitat",
+     "icon": "/images/configurator/ventilation-ventilation-veh-ecopur-pour-l-habitat.svg"
+    },
+    {
+     "id": "5a65ee2c-00ce-42b6-ad92-e9ee301497d0",
+     "label": "Ventilation VMC (Ventilation Mécanique Controlée) double flux",
+     "icon": "/images/configurator/ventilation-ventilation-vmc-ventilation-mecanique-controlee-double-flux.svg"
+    },
+    {
+     "id": "b665f57a-ebb9-441b-86b3-c8a7366f9626",
+     "label": "Ventilation VMC (Ventilation Mécanique Controlée) simple flux",
+     "icon": "/images/configurator/ventilation-ventilation-vmc-ventilation-mecanique-controlee-simple-flux.svg"
+    }
+   ]
+  }
+ ],
+ "steps": [
+  {
+   "title": "Type de logement",
+   "hint": "Le lieu concerné par les travaux."
+  },
+  {
+   "title": "Type de projet",
+   "hint": "Les travaux que vous souhaitez réaliser."
+  },
+  {
+   "title": "Type de profil",
+   "hint": "Renseignements nécessaires afin de vous contacter."
+  }
+ ]
+}

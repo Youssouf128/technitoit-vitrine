@@ -1,0 +1,33 @@
+<svg id="Calque_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+    <ellipse cx="100" cy="24.71" rx="52.06" ry="24.71" style="fill:#ced1d1;"/>
+    <rect x="97.24" y="170.68" width="5.53" height="29.32" style="fill:#bbbcbc;"/>
+    <path d="m152.06,24.71v137.4c0,13.64-23.29,24.71-52.06,24.71s-52.06-11.07-52.06-24.71V24.71c0,13.64,23.31,24.71,52.06,24.71,28.77-.02,52.06-11.07,52.06-24.71Z"
+          style="fill:#bbbcbc;"/>
+    <path d="m138.61,135.68c0-9.89-17.59-17.88-39.36-17.88s-39.4,7.99-39.4,17.88"
+          style="fill:none; stroke:#3db0d8; stroke-linecap:round; stroke-miterlimit:10; stroke-width:3.42px;"/>
+    <path d="m138.61,146.41c0-9.89-17.59-17.88-39.36-17.88s-39.4,7.99-39.4,17.88"
+          style="fill:none; stroke:#3db0d8; stroke-linecap:round; stroke-miterlimit:10; stroke-width:3.42px;"/>
+    <path d="m138.61,124.29c0-9.89-17.59-17.88-39.36-17.88s-39.4,7.99-39.4,17.88"
+          style="fill:none; stroke:#0086a5; stroke-linecap:round; stroke-miterlimit:10; stroke-width:3.42px;"/>
+    <path d="m138.61,100.84c0-9.89-17.59-17.88-39.36-17.88s-39.4,7.99-39.4,17.88"
+          style="fill:none; stroke:#ff6008; stroke-linecap:round; stroke-miterlimit:10; stroke-width:3.42px;"/>
+    <path d="m138.61,112.54c0-9.89-17.59-17.88-39.36-17.88s-39.4,7.99-39.4,17.88"
+          style="fill:none; stroke:#ff6008; stroke-linecap:round; stroke-miterlimit:10; stroke-width:3.42px;"/>
+    <path d="m136.08,82.95v75.03c0,9.89-16.46,17.88-36.85,17.88s-36.88-7.99-36.88-17.88v-75.03c0,9.89,16.52,17.88,36.88,17.88s36.85-7.99,36.85-17.88Z"
+          style="fill:#dadada;"/>
+    <path d="m136.08,82.95c0,9.89-16.46,17.88-36.85,17.88s-36.88-7.99-36.88-17.88,16.52-17.88,36.88-17.88c20.38,0,36.85,7.99,36.85,17.88Z"
+          style="fill:#ededed;"/>
+    <path d="m138.61,147.77c0,9.89-17.59,17.88-39.36,17.88s-39.4-7.99-39.4-17.88"
+          style="fill:none; stroke:#3db0d8; stroke-linecap:round; stroke-miterlimit:10; stroke-width:3.42px;"/>
+    <path d="m138.61,137.02c0,9.89-17.59,17.88-39.36,17.88s-39.4-7.99-39.4-17.88"
+          style="fill:none; stroke:#3db0d8; stroke-linecap:round; stroke-miterlimit:10; stroke-width:3.42px;"/>
+    <path d="m138.61,125.64c0,9.89-17.59,17.88-39.36,17.88s-39.4-7.99-39.4-17.88"
+          style="fill:none; stroke:#0086a5; stroke-linecap:round; stroke-miterlimit:10; stroke-width:3.42px;"/>
+    <path d="m138.61,113.9c0,9.89-17.59,17.88-39.36,17.88s-39.4-7.99-39.4-17.88"
+          style="fill:none; stroke:#ff6008; stroke-linecap:round; stroke-miterlimit:10; stroke-width:3.42px;"/>
+    <path d="m138.61,102.17c0,9.89-17.59,17.88-39.36,17.88s-39.4-7.99-39.4-17.88"
+          style="fill:none; stroke:#ff6008; stroke-linecap:round; stroke-miterlimit:10; stroke-width:3.42px;"/>
+    <ellipse cx="100" cy="12.6" rx="22.93" ry="10.88" style="fill:#ededed;"/>
+    <path d="m115.69,58.1c.8-.29,1.66.29,1.66,1.16v14.44c0,1.68-7.75,3.05-17.34,3.05s-17.34-1.37-17.34-3.05v-14.44c0-.86.86-1.45,1.66-1.16,2.77,1.03,8.76,1.75,15.69,1.75,6.9,0,12.87-.72,15.66-1.75Z"
+          style="fill:#565655;"/>
+</svg>
