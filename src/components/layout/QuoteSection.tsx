@@ -1,15 +1,59 @@
+import Image from "next/image";
 import { QuoteConfigurator } from "@/components/home/QuoteConfigurator";
-import { SectionTitle } from "@/components/ui/SectionTitle";
+import { Accent, SectionTitle } from "@/components/ui/SectionTitle";
+import { EuroIcon, ShieldCheckIcon, SparkleIcon } from "@/components/ui/icons";
 
-/** Bloc « devis gratuit » réutilisable en bas des pages internes. */
+const REASSURANCE = [
+  { icon: SparkleIcon, label: "100 % gratuit et sans engagement" },
+  { icon: ShieldCheckIcon, label: "Vos données restent confidentielles" },
+  { icon: EuroIcon, label: "Conseils sur les aides financières" },
+];
+
+/** Bloc « devis gratuit » réutilisable (accueil et pages internes). */
 export function QuoteSection() {
   return (
-    <section aria-labelledby="quote-title" className="bg-tt-grey-bg py-20">
-      <div className="content-container flex flex-col items-center gap-14">
-        <SectionTitle id="quote-title" light="votre projet" bold="devis gratuit" inlineOnDesktop />
-        <div id="configurator-anchor" className="flex w-full scroll-mt-32 justify-center">
+    <section aria-labelledby="quote-title" className="relative isolate overflow-hidden bg-tt-stone py-24 lg:py-32">
+      <div aria-hidden className="absolute left-1/2 top-0 -z-10 h-80 w-[900px] -translate-x-1/2 rounded-full bg-tt-orange/10 blur-[120px]" />
+      <div className="content-container flex flex-col items-center">
+        <SectionTitle
+          id="quote-title"
+          align="center"
+          eyebrow="Devis gratuit"
+          title={
+            <>
+              Estimez votre projet <Accent>en quelques clics.</Accent>
+            </>
+          }
+          description="Répondez à quelques questions : un conseiller de l’agence la plus proche vous recontacte pour affiner votre besoin et vous remettre un devis détaillé."
+        />
+
+        <ul className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm font-semibold">
+          {REASSURANCE.map((r) => (
+            <li key={r.label} className="flex items-center gap-2">
+              <r.icon className="size-5 text-tt-orange" />
+              {r.label}
+            </li>
+          ))}
+        </ul>
+
+        <div id="configurator-anchor" className="mt-12 flex w-full scroll-mt-32 justify-center">
           <QuoteConfigurator />
         </div>
+
+        <a
+          href="https://france-renov.gouv.fr/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-12 block w-fit overflow-hidden rounded-2xl border border-tt-line bg-white p-2 shadow-soft transition-shadow hover:shadow-lift"
+        >
+          <Image
+            src="/images/bandeau_france_renov__website_700x150px.png"
+            alt="Avant de vous engager, le service public vous informe gratuitement pour préparer et sécuriser votre projet : france-renov.gouv.fr"
+            width={701}
+            height={151}
+            className="h-auto w-full max-w-[520px]"
+          />
+        </a>
       </div>
     </section>
   );

@@ -7,7 +7,17 @@ export type CmsElement = {
   k?: CmsNode[];
 };
 
-export type CmsImage = { t: "img"; src: string; alt: string; c?: string; s?: string; w?: number; h?: number };
+export type CmsImage = {
+  t: "img";
+  src: string;
+  alt: string;
+  c?: string;
+  s?: string;
+  w?: number;
+  h?: number;
+  /** Image du bandeau (élément LCP) : préchargée */
+  hero?: boolean;
+};
 export type CmsVideo = { t: "video"; src: string; c?: string; auto?: boolean; loop?: boolean; muted?: boolean; controls?: boolean };
 
 type Slide = { x: "beforeAfter"; before: string; after: string; w: number; h: number; ratio?: number };

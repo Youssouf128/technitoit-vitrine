@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useLayoutEffect, useRef, useState } from "react";
 import type { ArticleMeta } from "@/lib/articles-types";
 import { ArticleCard } from "./ArticleCard";
 
@@ -38,46 +37,35 @@ export function ArticlesList({ articles, tags }: Props) {
     return `/actualites${s ? `?${s}` : ""}`;
   };
 
-  // Soulignement orange sous l'onglet actif
-  const listRef = useRef<HTMLUListElement>(null);
-  const [indicator, setIndicator] = useState({ left: 0, width: 0 });
-  useLayoutEffect(() => {
-    const el = listRef.current?.querySelector<HTMLElement>("[aria-current='page']");
-    if (el) setIndicator({ left: el.offsetLeft, width: el.offsetWidth });
-  }, [activeTag]);
-
   return (
     <div className="content-container pb-16">
-      <div className="mb-14 overflow-x-auto overflow-y-hidden pb-1">
-        <ul ref={listRef} className="relative mx-auto flex w-[1248px] justify-between border-b border-tt-grey-light pb-10">
+      <div className="mb-12 overflow-x-auto overflow-y-hidden pb-1 [scrollbar-width:none]">
+        <ul className="flex w-max gap-2">
           {tabs.map((t) => {
             const active = (t.value ?? null) === (activeTag ?? null);
             return (
-              <li key={t.label} className={`text-lg ${active ? "font-semibold" : ""}`}>
+              <li key={t.label}>
                 <Link
                   href={href(t.value)}
                   scroll={false}
                   aria-current={active ? "page" : undefined}
-                  className="transition-colors hover:text-tt-orange"
+                  className={`inline-flex whitespace-nowrap rounded-full border px-5 py-2.5 text-sm font-semibold transition-colors ${
+                    active ? "border-tt-blue bg-tt-blue text-white" : "border-tt-line hover:border-tt-orange hover:text-tt-orange"
+                  }`}
                 >
-                  {t.label.toUpperCase()}
+                  {t.label}
                 </Link>
               </li>
             );
           })}
-          <li
-            aria-hidden
-            className="absolute -bottom-[2px] h-[3px] bg-tt-orange transition-all duration-300"
-            style={{ left: indicator.left, width: indicator.width }}
-          />
         </ul>
       </div>
 
       {visible.length ? (
-        <ul className="mb-16 grid grid-cols-1 gap-x-5 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mb-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
           {visible.map((a, i) => (
             <li key={a.slug}>
-              <ArticleCard article={a} priority={i < 3} />
+              <ArticleCard article={a} eager={i < 3} />
             </li>
           ))}
         </ul>
@@ -97,7 +85,7 @@ export function ArticlesList({ articles, tags }: Props) {
               key={p}
               href={href(activeTag, p)}
               aria-current={p === current ? "page" : undefined}
-              className={`flex size-10 items-center justify-center border transition-colors ${
+              className={`flex size-10 items-center justify-center rounded-full border font-semibold transition-colors ${
                 p === current ? "border-tt-orange bg-tt-orange text-white" : "border-tt-grey-light hover:border-tt-orange hover:text-tt-orange"
               }`}
             >

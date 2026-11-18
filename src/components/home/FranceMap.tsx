@@ -18,7 +18,7 @@ export function FranceMap() {
             <path
               d={dep.d}
               transform={dep.t}
-              fill="#DFD8CD"
+              fill={dep.href ? "#d9cfbf" : "#ebe5db"}
               stroke="#fff"
               strokeWidth={1}
               data-name={dep.n}

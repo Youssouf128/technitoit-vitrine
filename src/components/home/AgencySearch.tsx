@@ -53,10 +53,8 @@ export function AgencySearch() {
   }
 
   return (
-    <form onSubmit={onSubmit} role="search" className="relative flex h-12 items-center justify-between bg-white px-2 shadow-lg">
-      <button type="submit" aria-label="Rechercher une agence" className="ml-4 text-tt-orange">
-        <LocationIcon className="size-5" />
-      </button>
+    <form onSubmit={onSubmit} role="search" className="relative flex h-14 items-center justify-between rounded-full border border-tt-line bg-white pl-2 pr-1.5 shadow-soft transition focus-within:border-tt-orange focus-within:ring-4 focus-within:ring-tt-orange/15">
+      <LocationIcon aria-hidden className="ml-4 size-5 shrink-0 text-tt-orange" />
       <div className="relative mx-4 w-full">
         <input
           id="agency_search_input"
@@ -83,11 +81,17 @@ export function AgencySearch() {
               setHighlight((h) => Math.max(h - 1, 0));
             }
           }}
-          className="h-10 w-full bg-transparent outline-none placeholder:text-tt-grey-medium"
+          className="h-10 w-full bg-transparent font-medium outline-none placeholder:font-normal placeholder:text-tt-grey-medium"
         />
       </div>
+      <button
+        type="submit"
+        className="h-11 shrink-0 rounded-full bg-tt-blue px-5 text-sm font-bold text-white transition-colors hover:bg-tt-orange"
+      >
+        Rechercher
+      </button>
       {open && results.length > 0 && (
-        <ul id={listId} role="listbox" className="absolute left-0 right-0 top-full z-20 mt-1 bg-white py-2 shadow-lg">
+        <ul id={listId} role="listbox" className="absolute left-0 right-0 top-full z-20 mt-2 overflow-hidden rounded-2xl border border-tt-line bg-white py-2 shadow-lift">
           {results.map((s, i) => (
             <li key={s.href} role="option" aria-selected={i === highlight}>
               <button
@@ -95,7 +99,7 @@ export function AgencySearch() {
                 onMouseDown={(e) => e.preventDefault()}
                 onClick={() => go(s)}
                 onMouseEnter={() => setHighlight(i)}
-                className={`block w-full px-6 py-2 text-left ${i === highlight ? "bg-tt-beige text-tt-orange" : ""}`}
+                className={`block w-full px-5 py-2.5 text-left font-medium ${i === highlight ? "bg-tt-orange-soft text-tt-orange" : ""}`}
               >
                 {s.label}
               </button>

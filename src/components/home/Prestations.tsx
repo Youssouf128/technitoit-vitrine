@@ -1,155 +1,93 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import { PRESTATIONS } from "@/data/site";
-import { SectionTitle } from "@/components/ui/SectionTitle";
-import { QuoteConfigurator } from "./QuoteConfigurator";
-
-const isDesktop = () => typeof window !== "undefined" && window.matchMedia("(min-width: 1024px)").matches;
-
-function PlusIcon({ open }: { open: boolean }) {
-  return (
-    <svg viewBox="0 0 25 25" fill="none" aria-hidden className="size-5 text-tt-orange">
-      <path d="M12.5 2v21" stroke="currentColor" strokeWidth="3" className={`origin-center transition-transform duration-300 ${open ? "scale-y-0" : ""}`} />
-      <path d="M2 12.5h21" stroke="currentColor" strokeWidth="3" />
-    </svg>
-  );
-}
+import { NAVIGATION, PRESTATIONS } from "@/data/site";
+import { Accent, SectionTitle } from "@/components/ui/SectionTitle";
+import { ArrowIcon, ArrowUpRight } from "@/components/ui/icons";
 
 export function Prestations() {
-  const [active, setActive] = useState(0);
-
   return (
-    <section aria-labelledby="prestations-title">
-      <div className="content-container mb-8 flex px-2 lg:mb-16 lg:justify-center">
-        <SectionTitle id="prestations-title" light="découvrez" bold="nos prestations" inlineOnDesktop className="mx-6" />
-      </div>
+    <section aria-labelledby="prestations-title" className="py-24 lg:py-32">
+      <div className="content-container">
+        <div className="mb-12 flex flex-col justify-between gap-6 lg:mb-16 lg:flex-row lg:items-end">
+          <SectionTitle
+            id="prestations-title"
+            eyebrow="Nos prestations"
+            title={
+              <>
+                Toute la rénovation de votre maison, <Accent>sous un même toit.</Accent>
+              </>
+            }
+          />
+          <p className="max-w-md text-tt-muted lg:text-right">
+            Du diagnostic à la fin du chantier, nos équipes prennent en charge chaque étape de votre projet, avec des
+            produits et des techniques éprouvés.
+          </p>
+        </div>
 
-      <div className="content-container relative mb-32 flex flex-col items-end justify-end pt-5 before:absolute before:inset-y-0 before:left-4 before:right-4 before:-z-10 before:bg-tt-grey-bg lg:max-w-screen-lg xl:max-w-screen-xl">
-        <div className="z-10 flex w-full flex-col justify-between lg:flex-row">
+        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2 lg:gap-5">
           {PRESTATIONS.map((p, i) => {
-            const open = i === active;
+            const featured = i === 0;
+            const links = NAVIGATION.find((n) => n.href === p.href)?.links.slice(0, 3) ?? [];
             return (
-              <article
-                key={p.title}
-                onMouseEnter={() => isDesktop() && setActive(i)}
-                className={[
-                  "relative isolate overflow-hidden transition-[max-height,width] duration-500 ease-in-out",
-                  "lg:h-[794px] lg:max-h-none lg:pt-64",
-                  open ? "max-h-[2000px] lg:w-[40%]" : "max-h-[100px] lg:w-[calc((100%-40%-60px)/3)]",
-                ].join(" ")}
+              <li
+                key={p.href}
+                className={`reveal group relative isolate flex min-h-[340px] flex-col justify-end overflow-hidden rounded-3xl bg-tt-navy text-white ${
+                  featured ? "sm:col-span-2 lg:col-span-1 lg:row-span-2 lg:min-h-[640px]" : "lg:min-h-0"
+                }`}
               >
-                {/* Liseré orange (desktop) */}
-                <div
-                  aria-hidden
-                  className={`absolute -left-1 top-1/2 z-10 hidden h-60 w-2 -translate-y-1/2 bg-tt-orange transition-opacity duration-500 lg:block ${
-                    open ? "opacity-100" : "opacity-0"
-                  }`}
+                <Image
+                  src={p.image}
+                  alt={p.alt}
+                  fill
+                  sizes={featured ? "(min-width: 1024px) 33vw, 100vw" : "(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"}
+                  className="-z-20 object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
+                <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-t from-tt-navy via-tt-navy/55 to-tt-navy/0" />
 
-                <button
-                  type="button"
-                  aria-expanded={open}
-                  aria-controls={`prestation-${i}`}
-                  onClick={() => setActive(open && !isDesktop() ? -1 : i)}
-                  className="relative block w-full cursor-pointer text-left lg:static lg:cursor-default"
-                  tabIndex={0}
-                >
-                  <div
-                    className={`relative w-full overflow-hidden transition-[height] duration-500 lg:absolute lg:inset-0 lg:-z-30 lg:h-full ${
-                      open ? "aspect-[1.57] lg:aspect-auto" : "h-[100px]"
-                    }`}
-                  >
-                    <Image
-                      src={p.image}
-                      alt={p.alt}
-                      fill
-                      sizes="(min-width: 1024px) 60vw, 100vw"
-                      className="object-cover"
-                    />
-                  </div>
-                  {/* Voile bleu */}
-                  <div
-                    aria-hidden
-                    className={`absolute left-0 top-0 h-full w-full bg-tt-blue transition-opacity duration-500 lg:-z-20 ${
-                      open ? "opacity-0 lg:opacity-75" : "opacity-75 lg:opacity-0"
-                    }`}
-                  />
-                  {/* Titre + icône (mobile, replié) */}
-                  <span
-                    className={`absolute left-8 top-[50px] -translate-y-1/2 text-[32px] font-bold text-white transition-opacity lg:hidden ${
-                      open ? "opacity-0" : "opacity-100"
-                    }`}
-                  >
-                    {p.title}
-                    <span className="text-tt-orange">.</span>
-                  </span>
-                  <span
-                    className={`absolute right-10 top-[50px] -translate-y-1/2 transition-opacity lg:hidden ${
-                      open ? "opacity-0" : "opacity-100"
-                    }`}
-                  >
-                    <PlusIcon open={open} />
-                  </span>
-                  <span
-                    aria-hidden
-                    className={`absolute left-8 top-full z-[1] h-2 w-12 -translate-y-1/2 bg-tt-orange lg:hidden ${
-                      open ? "block" : "hidden"
-                    }`}
-                  />
-                  <span className="sr-only">{open ? "Replier" : "Afficher"} la prestation {p.title}</span>
-                </button>
+                <span className="absolute right-5 top-5 grid size-11 place-items-center rounded-full bg-white/15 backdrop-blur-md transition-all duration-300 group-hover:rotate-45 group-hover:bg-tt-orange">
+                  <ArrowUpRight className="size-5" />
+                </span>
 
-                <div id={`prestation-${i}`}>
-                  <h3
-                    className={`bg-tt-blue px-8 pb-6 pt-11 text-[32px] font-bold text-white transition-opacity duration-500 lg:mb-10 lg:bg-transparent lg:p-0 lg:pl-16 lg:text-4xl ${
-                      open ? "lg:opacity-100" : "lg:opacity-0"
-                    }`}
-                  >
-                    {p.title}
-                    <span className="text-tt-orange">.</span>
-                  </h3>
-                  <div
-                    className={`relative bg-tt-blue px-8 pb-14 transition-opacity duration-500 lg:w-[400px] lg:bg-transparent lg:p-0 lg:pl-16 ${
-                      open ? "lg:opacity-100" : "pointer-events-none lg:opacity-0"
-                    }`}
-                  >
-                    <p className="mb-8 text-base text-white lg:text-xl">{p.text}</p>
-                    <div aria-hidden className="mb-14 hidden h-2 w-12 bg-tt-orange lg:block" />
-                    <Link
-                      href={p.href}
-                      tabIndex={open ? 0 : -1}
-                      className="btn-outline-orange inline-block px-5 py-2"
-                    >
-                      découvrir
+                <div className="p-6 lg:p-7">
+                  <h3 className={`font-extrabold ${featured ? "text-3xl lg:text-4xl" : "text-2xl"}`}>
+                    {/* Le lien couvre toute la carte */}
+                    <Link href={p.href} className="after:absolute after:inset-0 after:content-['']">
+                      {p.title}
                     </Link>
-                  </div>
+                  </h3>
+                  <p className={`mt-2 text-white/75 ${featured ? "max-w-sm text-base" : "line-clamp-2 text-sm"}`}>
+                    {featured ? p.text : p.short}
+                  </p>
+                  {featured && (
+                    <ul className="relative z-10 mt-6 flex flex-wrap gap-2">
+                      {links.map((l) => (
+                        <li key={l.href}>
+                          <Link
+                            href={l.href}
+                            className="inline-flex rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-sm backdrop-blur-md transition-colors hover:border-tt-orange hover:bg-tt-orange"
+                          >
+                            {l.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
-              </article>
+              </li>
             );
           })}
-        </div>
+        </ul>
 
-        <div id="configurator-anchor" className="mt-20 flex w-full scroll-mt-32 justify-end pb-10 lg:mt-24 lg:pb-0">
-          <QuoteConfigurator />
+        <div className="mt-10 flex justify-center">
+          <Link
+            href="/devis-gratuit"
+            className="group inline-flex items-center gap-2 font-bold text-tt-blue transition-colors hover:text-tt-orange"
+          >
+            Vous ne savez pas par où commencer ? Faites-vous conseiller gratuitement
+            <ArrowIcon className="size-4 transition-transform group-hover:translate-x-1" />
+          </Link>
         </div>
       </div>
-
-      <a
-        href="https://france-renov.gouv.fr/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mx-auto my-6 block w-fit px-4"
-      >
-        <Image
-          src="/images/bandeau_france_renov__website_700x150px.png"
-          alt="Avant de vous engager, le service public vous informe gratuitement pour préparer et sécuriser votre projet : france-renov.gouv.fr"
-          width={701}
-          height={151}
-        />
-      </a>
     </section>
   );
 }

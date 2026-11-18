@@ -142,6 +142,7 @@ export const PRESTATIONS = [
     href: "/renovation-toiture",
     image: "/images/prestation_toiture.jpg",
     alt: "toiture en tuiles neuve",
+    short: "Démoussage, hydrofuge, réfection",
     text: "Redonnez une seconde jeunesse à vos tuiles et ardoises grâce aux produits exclusifs de Technitoit, le spécialiste de la toiture en France.",
   },
   {
@@ -149,6 +150,7 @@ export const PRESTATIONS = [
     href: "/renovation-facade",
     image: "/images/prestation_facade.jpg",
     alt: "façade de maison rénovée",
+    short: "Ravalement, nettoyage, humidité",
     text: "Éliminez efficacement les mousses, lichens, traces rouges, champignons, fissures, lézardes grâce aux services de rénovation de façade proposés par Technitoit. Confiez votre projet à notre expertise pour redonner à votre façade son éclat et sa protection d'origine.",
   },
   {
@@ -156,6 +158,7 @@ export const PRESTATIONS = [
     href: "/isolation",
     image: "/images/prestation_isolation.jpg",
     alt: "isolation sous toiture",
+    short: "Combles, murs, sous-sols",
     text: "Renforcez l'isolation de votre maison avec Technitoit pour réduire considérablement vos factures d'énergie tout en améliorant votre confort de vie.",
   },
   {
@@ -163,7 +166,16 @@ export const PRESTATIONS = [
     href: "/energie",
     image: "/images/prestation_energie.jpg",
     alt: "panneaux solaires sur une maison de campagne",
+    short: "Solaire, pompe à chaleur, VMC",
     text: "Explorez les solutions innovantes de Technitoit pour améliorer votre quotidien ou consommer moins d’énergie : système d’autoconsommation solaire, chauffage/ventilation, purificateur d’air, etc.",
+  },
+  {
+    title: "Extérieur",
+    href: "/amenagement-exterieur",
+    image: "/images/pages/92d8c9ee7b-amenagement-exterieur-technitoit.webp",
+    alt: "pergola bioclimatique installée sur une terrasse",
+    short: "Pergolas, carports, auvents",
+    text: "Profitez pleinement de votre extérieur avec nos pergolas bioclimatiques et solaires, carports et auvents : des aménagements élégants qui produisent aussi votre énergie.",
   },
 ];
 

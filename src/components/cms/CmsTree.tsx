@@ -59,18 +59,15 @@ function renderNode(node: CmsNode, key: number): ReactNode {
         return (
           <details
             key={key}
-            className="tt-accordion border-b border-tt-grey-light bg-white px-8 py-8 transition-colors duration-300 open:bg-tt-grey-lighter"
+            className="tt-accordion mb-3 rounded-2xl border border-tt-line bg-white px-6 py-5 transition-colors duration-300 open:border-tt-orange/30 open:bg-tt-stone lg:px-8 lg:py-6"
           >
-            <summary className="flex cursor-pointer list-none justify-between gap-4 text-lg font-bold">
-              <span className="flex gap-2">
-                <span aria-hidden className="mt-2 h-2.5 min-w-2.5 bg-tt-orange" />
-                {node.title}
-              </span>
-              <span className="flex size-8 min-w-8 items-center justify-center text-tt-orange" aria-hidden>
-                <svg viewBox="0 0 32 32" className="tt-accordion-plus size-full">
-                  <path d="M16 2v28M2 16h28" stroke="currentColor" strokeWidth="1.5" />
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-bold">
+              <span>{node.title}</span>
+              <span className="grid size-9 min-w-9 place-items-center rounded-full bg-tt-orange-soft text-tt-orange" aria-hidden>
+                <svg viewBox="0 0 32 32" className="tt-accordion-plus size-3.5">
+                  <path d="M16 2v28M2 16h28" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" />
                 </svg>
-                <CloseIcon className="tt-accordion-close size-5" />
+                <CloseIcon className="tt-accordion-close size-3" />
               </span>
             </summary>
             <div className="pt-4">{renderChildren(node.k)}</div>
@@ -85,48 +82,43 @@ function renderNode(node: CmsNode, key: number): ReactNode {
 }
 
 function renderImage(node: CmsImage, key: number): ReactNode {
-  {
-    const style = parseStyle(node.s);
-    if (node.w && node.h) {
-      return (
-        <Image
-          key={key}
-          src={node.src}
-          alt={node.alt}
-          width={Math.min(node.w, 1920)}
-          height={Math.round((Math.min(node.w, 1920) / node.w) * node.h)}
-          sizes="(min-width: 1280px) 1280px, 100vw"
-          unoptimized={node.src.endsWith(".svg") || node.src.endsWith(".gif")}
-          className={node.c}
-          style={style}
-        />
-      );
-    }
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img key={key} src={node.src} alt={node.alt} className={node.c} style={style} loading="lazy" />;
-  }
-
-}
-
-function renderVideo(node: CmsVideo, key: number): ReactNode {
-  {
+  const style = parseStyle(node.s);
+  if (node.w && node.h) {
     return (
-      <video
+      <Image
         key={key}
         src={node.src}
+        alt={node.alt}
+        width={Math.min(node.w, 1920)}
+        height={Math.round((Math.min(node.w, 1920) / node.w) * node.h)}
+        sizes={node.hero ? "100vw" : "(min-width: 1280px) 1280px, 100vw"}
+        preload={node.hero}
+        unoptimized={node.src.endsWith(".svg") || node.src.endsWith(".gif")}
         className={node.c}
-        controls={node.controls || !node.auto}
-        autoPlay={node.auto}
-        loop={node.loop}
-        muted={node.muted || node.auto}
-        playsInline
-        preload="metadata"
-        width="100%"
-        height="100%"
+        style={style}
       />
     );
   }
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img key={key} src={node.src} alt={node.alt} className={node.c} style={style} loading="lazy" />;
+}
 
+function renderVideo(node: CmsVideo, key: number): ReactNode {
+  return (
+    <video
+      key={key}
+      src={node.src}
+      className={node.c}
+      controls={node.controls || !node.auto}
+      autoPlay={node.auto}
+      loop={node.loop}
+      muted={node.muted || node.auto}
+      playsInline
+      preload="metadata"
+      width="100%"
+      height="100%"
+    />
+  );
 }
 
 function renderElement(node: CmsElement, key: number): ReactNode {
@@ -161,6 +153,6 @@ function renderChildren(nodes?: CmsNode[]): ReactNode {
   return nodes.map((n, i) => renderNode(n, i));
 }
 
-export function CmsTree({ nodes }: { nodes: CmsNode[] }) {
+export function CmsTree({ nodes }: Readonly<{ nodes: CmsNode[] }>) {
   return <>{renderChildren(nodes)}</>;
 }

@@ -22,23 +22,25 @@ export default function AgencesPage() {
           { label: "Nos agences", href: "/agence" },
         ]}
       />
-      <section className="bg-tt-beige py-16 lg:py-24">
-        <div className="content-container grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <section className="py-16 lg:py-24">
+        <div className="content-container grid items-center gap-14 lg:grid-cols-2 lg:gap-24">
           <div>
-            <p className="mb-6 text-2xl font-bold">Ville, département ou code postal :</p>
+            <p className="mb-4 text-2xl font-extrabold">Ville, département ou code postal</p>
             <div className="mb-14">
               <AgencySearch />
             </div>
-            <p className="mb-4 text-sm tracking-[.25em] text-tt-orange">PAR RÉGION</p>
-            <nav aria-label="Régions" className="grid grid-cols-2 gap-y-3 font-light">
+            <p className="mb-4 text-xs font-bold uppercase tracking-[.18em] text-tt-muted">Par région</p>
+            <nav aria-label="Régions" className="flex flex-wrap gap-2">
               {REGIONS.map((r) => (
-                <Link key={r.href} href={r.href} className="hover:text-tt-orange">
+                <Link key={r.href} href={r.href} className="rounded-full border border-tt-line bg-white px-3.5 py-1.5 text-sm font-medium transition-colors hover:border-tt-orange hover:bg-tt-orange hover:text-white">
                   {r.label}
                 </Link>
               ))}
             </nav>
           </div>
-          <FranceMap />
+          <div className="rounded-[2rem] bg-tt-stone p-8 lg:p-12">
+            <FranceMap />
+          </div>
         </div>
       </section>
     </>

@@ -15,23 +15,26 @@ export const metadata: Metadata = {
 export default function ActualitesPage() {
   return (
     <>
-      <section className="relative isolate flex h-128 items-end md:h-160 lg:h-176">
+      <section className="relative isolate flex h-[440px] items-end overflow-hidden bg-tt-navy text-white md:h-[520px]">
         <Image
           src="/images/actualites-hero.png"
           alt="Vue aérienne d'une maison avec toiture en tuiles"
           fill
-          priority
+          preload
           sizes="100vw"
-          className="-z-10 object-cover"
+          className="-z-20 object-cover"
         />
-        <div className="relative block w-4/5 bg-[#D9D9D9]/20 pb-14 pl-8 pt-16 text-white backdrop-blur-[2px] md:w-176 lg:ml-28 xl:ml-52">
-          <h1 className="text-3xl font-bold leading-none drop-shadow-lg sm:text-5xl md:text-[85px]">
-            Actualités<span className="text-tt-orange">.</span>
-          </h1>
+        <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-r from-tt-navy/90 via-tt-navy/55 to-tt-navy/10" />
+        <div className="content-container pb-14 lg:pb-20">
+          <p className="eyebrow">Le journal Technitoit</p>
+          <h1 className="mt-4 text-5xl font-extrabold md:text-7xl">Actualités &amp; conseils</h1>
+          <p className="mt-5 max-w-xl text-lg text-white/75">
+            Engagements, innovations, conseils travaux : suivez toute l’actualité de la rénovation de l’habitat.
+          </p>
         </div>
       </section>
 
-      <div className="content-container mb-16 mt-8 flex overflow-x-auto">
+      <div className="content-container mb-10 mt-8 flex overflow-x-auto">
         <ArticleBreadcrumbs crumbs={[{ label: "Accueil", href: "/" }, { label: "Actualités" }]} />
       </div>
 

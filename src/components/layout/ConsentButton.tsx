@@ -8,14 +8,14 @@ export function ConsentButton() {
   return (
     <button
       type="button"
-      className="transition-colors hover:text-tt-orange"
+      className="text-white/70 transition-colors hover:text-white"
       onClick={() => {
         const w = window as unknown as { Didomi?: { preferences: { show: () => void } } };
         if (w.Didomi) w.Didomi.preferences.show();
         else window.dispatchEvent(new CustomEvent("tt:open-consent"));
       }}
     >
-      CONSENTEMENT
+      Gestion des cookies
     </button>
   );
 }

@@ -30,11 +30,11 @@ export function NewsletterForm() {
   }
 
   return (
-    <div className="mx-auto mt-6 max-w-[500px] lg:mx-0 lg:max-w-none">
+    <div className="mt-4 max-w-md">
       <form
         onSubmit={onSubmit}
         noValidate
-        className="flex flex-col lg:h-[70px] lg:w-[500px] lg:flex-row lg:items-center lg:bg-white xl:w-[590px]"
+        className="flex h-14 items-center rounded-full border border-white/15 bg-white/5 p-1.5 pl-5 transition focus-within:border-tt-orange"
       >
         <label htmlFor="newsletter-email" className="sr-only">
           Votre adresse email
@@ -46,20 +46,17 @@ export function NewsletterForm() {
           autoComplete="email"
           required
           placeholder="Votre adresse email"
-          className="h-14 bg-white pl-8 outline-none placeholder:text-tt-grey-medium lg:h-full lg:flex-1"
+          className="h-full min-w-0 flex-1 bg-transparent text-white outline-none placeholder:text-white/40"
         />
         <button
           type="submit"
           disabled={status === "loading"}
-          className="mt-2 bg-tt-blue px-10 py-4 text-sm tracking-[.25em] text-white transition-colors hover:bg-tt-sky-blue disabled:opacity-60 lg:mx-3 lg:mt-0"
+          className="h-full shrink-0 rounded-full bg-tt-orange px-5 text-sm font-bold text-white transition-colors hover:bg-tt-orange-dark disabled:opacity-60"
         >
-          {status === "loading" ? "ENVOI…" : "INSCRIPTION"}
+          {status === "loading" ? "Envoi…" : "S'inscrire"}
         </button>
       </form>
-      <p
-        role="status"
-        className={`mt-2 min-h-5 text-center text-sm lg:text-left ${status === "error" ? "text-red-600" : "text-tt-blue"}`}
-      >
+      <p role="status" className={`mt-2 min-h-5 text-sm ${status === "error" ? "text-red-400" : "text-white/70"}`}>
         {message}
       </p>
     </div>

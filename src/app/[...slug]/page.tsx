@@ -4,13 +4,17 @@ import { notFound } from "next/navigation";
 import { PageHero } from "@/components/layout/PageHero";
 import { QuoteSection } from "@/components/layout/QuoteSection";
 import { AgencySearch } from "@/components/home/AgencySearch";
-import { ArrowRight } from "@/components/ui/icons";
+import { ArrowIcon, AwardIcon, EuroIcon, ShieldCheckIcon, SparkleIcon } from "@/components/ui/icons";
 import { SITE } from "@/data/site";
 import { allGenericPaths, categoryTitle, resolvePage, type ResolvedPage } from "@/lib/pages";
 import { getCmsPage } from "@/lib/cms-pages";
 import { CmsTree } from "@/components/cms/CmsTree";
 
 type Props = { params: Promise<{ slug: string[] }> };
+
+// Tout le contenu dépend de l'URL (aucune partie commune à afficher en attendant) et chaque page est
+// prérendue au build : la navigation attend la page plutôt que d'afficher un squelette vide.
+export const instant = false;
 
 export function generateStaticParams() {
   return allGenericPaths().map((p) => ({ slug: p.slice(1).split("/") }));
@@ -33,19 +37,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const WHY_US = [
-  { title: "+20 ans d'expérience", text: `Depuis ${SITE.foundingYear}, nos équipes accompagnent les particuliers dans la rénovation de leur habitat.` },
-  { title: `${SITE.agencies} agences`, text: "Un réseau présent partout en France pour un interlocuteur proche de chez vous." },
-  { title: "Installateurs RGE", text: "Des professionnels certifiés RGE pour vous permettre de bénéficier des aides à la rénovation." },
-  { title: "Devis gratuit", text: "Un conseiller étudie votre projet et vous remet un devis détaillé, sans engagement." },
+  { icon: AwardIcon, title: "+20 ans d'expérience", text: `Depuis ${SITE.foundingYear}, nos équipes accompagnent les particuliers dans la rénovation de leur habitat.` },
+  { icon: SparkleIcon, title: `${SITE.agencies} agences`, text: "Un réseau présent partout en France pour un interlocuteur proche de chez vous." },
+  { icon: ShieldCheckIcon, title: "Installateurs RGE", text: "Des professionnels certifiés RGE pour vous permettre de bénéficier des aides à la rénovation." },
+  { icon: EuroIcon, title: "Devis gratuit", text: "Un conseiller étudie votre projet et vous remet un devis détaillé, sans engagement." },
 ];
 
 function WhyUs() {
   return (
-    <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
       {WHY_US.map((w) => (
-        <li key={w.title} className="border-l-4 border-tt-orange bg-white p-6 shadow-sm">
-          <p className="mb-2 text-xl font-bold">{w.title}</p>
-          <p className="font-light">{w.text}</p>
+        <li key={w.title} className="rounded-3xl border border-tt-line bg-white p-7 shadow-soft">
+          <span className="mb-6 grid size-12 place-items-center rounded-2xl bg-tt-orange-soft text-tt-orange">
+            <w.icon className="size-6" />
+          </span>
+          <p className="mb-2 text-lg font-bold">{w.title}</p>
+          <p className="text-sm leading-relaxed text-tt-muted">{w.text}</p>
         </li>
       ))}
     </ul>
@@ -59,10 +66,12 @@ function LinkGrid({ links }: { links: { label: string; href: string }[] }) {
         <li key={l.href}>
           <Link
             href={l.href}
-            className="group flex h-full items-center justify-between gap-4 border border-tt-grey-light bg-white px-6 py-5 text-lg font-bold transition-colors hover:border-tt-orange hover:text-tt-orange"
+            className="group flex h-full items-center justify-between gap-4 rounded-2xl border border-tt-line bg-white px-6 py-5 text-lg font-bold transition-all hover:-translate-y-0.5 hover:border-tt-orange/40 hover:shadow-lift"
           >
             {l.label}
-            <ArrowRight className="size-8 shrink-0 stroke-[4px] text-tt-orange transition-transform group-hover:translate-x-1" />
+            <span className="grid size-10 shrink-0 place-items-center rounded-full bg-tt-stone text-tt-orange transition-colors group-hover:bg-tt-orange group-hover:text-white">
+              <ArrowIcon className="size-4" />
+            </span>
           </Link>
         </li>
       ))}
@@ -76,14 +85,12 @@ function Body({ page }: { page: ResolvedPage }) {
       return (
         <>
           <section className="content-container py-16 lg:py-24">
-            <p className="mb-14 max-w-3xl text-2xl font-light">{page.intro}</p>
-            <h2 className="mb-8 text-3xl font-black">
-              Nos prestations {page.category.label}
-              <span className="text-tt-orange">.</span>
-            </h2>
+            <p className="mb-14 max-w-3xl text-xl leading-relaxed text-tt-muted md:text-2xl">{page.intro}</p>
+            <p className="eyebrow mb-3">Nos prestations</p>
+            <h2 className="mb-8 text-3xl font-extrabold md:text-4xl">Prestations {page.category.label}</h2>
             <LinkGrid links={page.category.links} />
           </section>
-          <section className="bg-tt-beige py-16">
+          <section className="bg-tt-stone py-16 lg:py-20">
             <div className="content-container">
               <WhyUs />
             </div>
@@ -117,18 +124,18 @@ function Body({ page }: { page: ResolvedPage }) {
                 </Link>
               </p>
             </div>
-            <aside className="h-fit bg-tt-blue p-8 text-white">
-              <p className="mb-2 text-sm tracking-[.25em] text-tt-orange">DEVIS GRATUIT</p>
-              <p className="mb-6 text-2xl font-bold">Un projet de {page.title.toLowerCase()} ?</p>
-              <Link href="#configurator-anchor" className="btn-fill-orange inline-block px-6 py-3 font-bold">
+            <aside className="h-fit rounded-3xl bg-tt-navy p-8 text-white shadow-lift lg:sticky lg:top-28">
+              <p className="mb-2 text-xs font-bold uppercase tracking-[.18em] text-tt-orange">Devis gratuit</p>
+              <p className="mb-6 text-2xl font-extrabold">Un projet de {page.title.toLowerCase()} ?</p>
+              <Link href="#configurator-anchor" className="btn-fill-orange inline-block px-6 py-3">
                 Demander un devis
               </Link>
               <div className="my-8 h-px bg-white/20" />
               <p className="mb-3 font-bold">Voir aussi</p>
-              <ul className="space-y-2 font-light">
+              <ul className="space-y-2.5 text-[15px]">
                 {siblings.map((l) => (
                   <li key={l.href}>
-                    <Link href={l.href} className="hover:text-tt-orange">
+                    <Link href={l.href} className="text-white/70 hover:text-white">
                       {l.label}
                     </Link>
                   </li>
@@ -141,7 +148,7 @@ function Body({ page }: { page: ResolvedPage }) {
               </ul>
             </aside>
           </section>
-          <section className="bg-tt-beige py-16">
+          <section className="bg-tt-stone py-16 lg:py-20">
             <div className="content-container">
               <WhyUs />
             </div>
@@ -152,7 +159,7 @@ function Body({ page }: { page: ResolvedPage }) {
     case "region":
       return (
         <section className="content-container py-16 lg:py-24">
-          <p className="mb-10 max-w-3xl text-2xl font-light">
+          <p className="mb-10 max-w-3xl text-xl leading-relaxed text-tt-muted md:text-2xl">
             Retrouvez les départements de la région {page.region.label} couverts par le réseau Technitoit et contactez
             l&apos;agence la plus proche de chez vous.
           </p>
@@ -165,12 +172,12 @@ function Body({ page }: { page: ResolvedPage }) {
     case "department":
       return (
         <section className="content-container py-16 lg:py-24">
-          <p className="mb-10 max-w-3xl text-2xl font-light">
+          <p className="mb-10 max-w-3xl text-xl leading-relaxed text-tt-muted md:text-2xl">
             Vous habitez dans le département {page.number} ? Une agence Technitoit intervient près de chez vous pour vos
             travaux de toiture, façade, isolation et énergie.
           </p>
           <div className="flex flex-wrap gap-4">
-            <Link href="#configurator-anchor" className="btn-fill-orange inline-block px-6 py-3 font-bold">
+            <Link href="#configurator-anchor" className="btn-fill-orange inline-block px-6 py-3">
               Demander un devis gratuit
             </Link>
             {page.region && (
@@ -187,7 +194,7 @@ function Body({ page }: { page: ResolvedPage }) {
           <div className="tt-prose max-w-3xl">
             <p>Cette page est en cours de rédaction. Pour toute question, n&apos;hésitez pas à nous contacter.</p>
           </div>
-          <Link href="/devis-gratuit" className="btn-fill-orange mt-6 inline-block px-6 py-3 font-bold">
+          <Link href="/devis-gratuit" className="btn-fill-orange mt-6 inline-block px-6 py-3">
             Nous contacter
           </Link>
         </section>
@@ -198,7 +205,12 @@ function Body({ page }: { page: ResolvedPage }) {
 export default async function GenericPage({ params }: Props) {
   const { slug } = await params;
   const cms = getCmsPage(toPath(slug));
-  if (cms) return <CmsTree nodes={cms.tree} />;
+  if (cms)
+    return (
+      <div className="tt-cms">
+        <CmsTree nodes={cms.tree} />
+      </div>
+    );
   const page = resolvePage(toPath(slug));
   if (!page) notFound();
 

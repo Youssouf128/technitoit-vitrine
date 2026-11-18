@@ -10,6 +10,9 @@ import { SITE } from "@/data/site";
 
 type Props = { params: Promise<{ slug: string }> };
 
+// Contenu entièrement lié à l'URL et prérendu au build : la navigation attend l'article (voir [...slug]).
+export const instant = false;
+
 export function generateStaticParams() {
   return ARTICLES_META.map((a) => ({ slug: a.slug }));
 }
@@ -62,10 +65,10 @@ export default async function ArticlePage({ params }: Props) {
 
   return (
     <>
-      <section className="relative pb-20 pt-52">
-        <div aria-hidden className="absolute left-0 top-0 -z-[1] h-[42rem] w-full bg-tt-grey-bg" />
+      <section className="relative pb-20 pt-28 lg:pt-36">
+        <div aria-hidden className="absolute left-0 top-0 -z-[1] h-[42rem] w-full bg-tt-stone" />
 
-        <article className="content-container border-b border-tt-grey-light pb-20">
+        <article className="content-container pb-20">
           <ArticleBreadcrumbs
             className="mb-10 lg:mb-16"
             crumbs={[
@@ -76,15 +79,14 @@ export default async function ArticlePage({ params }: Props) {
           />
 
           {a.tag && (
-            <span className="mb-9 inline-block bg-tt-orange px-6 py-2.5 text-xs uppercase leading-none tracking-[.25em] text-white lg:px-11">
+            <span className="mb-8 inline-block rounded-full bg-tt-orange px-4 py-2 text-xs font-bold uppercase leading-none tracking-[.15em] text-white">
               {a.tag}
             </span>
           )}
 
           <div className="mb-6 flex flex-col lg:mb-28 lg:flex-row lg:justify-between">
-            <h1 className="mb-9 text-4xl font-bold leading-none lg:mb-0 lg:min-h-[255px] lg:w-[600px] lg:text-6xl xl:w-[820px] xl:text-[85px]">
+            <h1 className="mb-9 text-4xl font-extrabold leading-[1.05] lg:mb-0 lg:min-h-[255px] lg:w-[600px] lg:text-6xl xl:w-[780px] xl:text-7xl">
               {a.h1}
-              <span className="text-tt-orange">.</span>
             </h1>
             {a.heroImage && (
               <div className="relative flex-1">
@@ -93,21 +95,21 @@ export default async function ArticlePage({ params }: Props) {
                   alt={a.imageAlt}
                   width={a.heroW}
                   height={a.heroH}
-                  priority
+                  preload
                   sizes="(min-width: 1024px) 420px, 100vw"
-                  className="max-h-[360px] w-full object-contain lg:absolute lg:left-1/2 lg:top-28 lg:max-w-[420px] lg:-translate-x-1/2"
+                  className="max-h-[360px] w-full rounded-3xl object-cover shadow-lift lg:absolute lg:left-1/2 lg:top-16 lg:max-w-[420px] lg:-translate-x-1/2"
                 />
               </div>
             )}
           </div>
 
           <div className="mx-auto w-full max-w-[850px]">
-            <div className="flex flex-col-reverse gap-8 lg:flex-row lg:gap-9">
-              <p className="font-light">
+            <div className="flex flex-col-reverse gap-3 border-y border-tt-line py-5 text-sm text-tt-muted sm:flex-row sm:gap-9">
+              <p>
                 Publié le <time dateTime={a.date}>{a.publishedLabel}</time>
               </p>
               {a.readingTime && (
-                <p className="flex items-center font-light">
+                <p className="flex items-center">
                   <ClockIcon />
                   <span className="ml-2">Temps de lecture : {a.readingTime}</span>
                 </p>
@@ -119,12 +121,11 @@ export default async function ArticlePage({ params }: Props) {
 
               {a.hasForm && (
                 <div id="configurator-anchor" className="mt-11 scroll-mt-32">
-                  <div className="h-fit w-full border border-tt-grey-light bg-white px-5 pb-12 pt-11 sm:px-12">
+                  <div className="h-fit w-full rounded-3xl border border-tt-line bg-tt-stone px-5 pb-12 pt-11 sm:px-12">
                     <p className="tnt-rich-text mb-10">
                       Remplissez le formulaire ci-dessous. Un conseiller traitera votre demande dans les meilleurs délais.
                     </p>
-                    <h2 className="mb-6 flex items-baseline gap-3 text-2xl font-bold">
-                      <span aria-hidden className="min-h-3 min-w-3 bg-tt-orange" />
+                    <h2 className="mb-6 text-2xl font-extrabold">
                       Informations de contact
                     </h2>
                     <ArticleContactForm source={`/actualites/${a.slug}`} />

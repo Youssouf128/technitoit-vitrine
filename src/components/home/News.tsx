@@ -1,56 +1,72 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ARTICLES_META } from "@/data/articles";
-import { formatShortDate } from "@/components/articles/ArticleCard";
+import { formatShortDate, frenchSpacing } from "@/components/articles/ArticleCard";
+import { Accent, SectionTitle } from "@/components/ui/SectionTitle";
+import { ArrowIcon, ArrowUpRight } from "@/components/ui/icons";
 
 const LATEST = ARTICLES_META.slice(0, 3);
-import { SectionTitle } from "@/components/ui/SectionTitle";
-import { ArrowRight } from "@/components/ui/icons";
 
 export function News() {
   return (
-    <section aria-labelledby="news-title" className="content-container mb-32 mt-16">
-      <div className="mb-10 flex flex-col justify-between lg:flex-row">
-        <SectionTitle id="news-title" light="découvrez" bold="nos actualités" />
-        <div className="w-full lg:w-1/2">
-          <p className="mb-2 mt-4 font-light md:text-sm">
-            Découvrez les dernières actualités, conseils et innovations de Technitoit. Suivez les tendances et avancées qui
-            transforment le domaine de la rénovation !
-          </p>
-          <Link href="/actualites" className="group flex items-center gap-2 text-sm font-bold">
-            <span>En voir plus</span>
-            <ArrowRight className="size-4 stroke-[7px] text-tt-orange transition-transform group-hover:translate-x-1" />
+    <section aria-labelledby="news-title" className="bg-tt-stone py-24 lg:py-32">
+      <div className="content-container">
+        <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <SectionTitle
+            id="news-title"
+            eyebrow="Actualités & conseils"
+            title={
+              <>
+                Le journal de <Accent>la rénovation.</Accent>
+              </>
+            }
+          />
+          <Link
+            href="/actualites"
+            className="group inline-flex h-12 shrink-0 items-center gap-2 self-start rounded-full border border-tt-blue/15 bg-white px-6 font-semibold transition-colors hover:border-tt-blue hover:bg-tt-blue hover:text-white md:self-auto"
+          >
+            Toutes les actualités
+            <ArrowIcon className="size-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
-      </div>
 
-      <ul className="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-5 overflow-x-auto px-4 pb-4 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0 md:pb-0">
-        {LATEST.map((a) => (
-          <li key={a.slug} className="w-[85%] flex-none snap-start md:w-auto">
-            <Link href={`/actualites/${a.slug}`} className="group flex h-full flex-col justify-between">
-              <div>
-                <div className="relative h-[290px] w-full overflow-hidden">
+        <ul className="-mx-5 flex snap-x snap-mandatory scroll-px-5 gap-5 overflow-x-auto px-5 pb-4 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0 md:pb-0">
+          {LATEST.map((a) => (
+            <li key={a.slug} className="w-[85%] flex-none snap-start md:w-auto">
+              <Link
+                href={`/actualites/${a.slug}`}
+                className="group flex h-full flex-col overflow-hidden rounded-3xl border border-tt-line bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lift"
+              >
+                <div className="relative aspect-[4/3] w-full overflow-hidden">
                   <Image
                     src={a.image ?? "/images/home_hero.jpg"}
                     alt={a.imageAlt}
                     fill
                     sizes="(min-width: 768px) 33vw, 85vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute bottom-0 left-0 m-4 bg-tt-blue px-4 py-3">
-                    <p className="text-sm font-light tracking-widest text-white">{formatShortDate(a.date)}</p>
-                  </div>
+                  {a.tag && (
+                    <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-tt-blue backdrop-blur">
+                      {a.tag}
+                    </span>
+                  )}
                 </div>
-                <p className="mt-4 text-xl font-bold text-tt-orange">{a.title}</p>
-              </div>
-              <div className="mt-4">
-                <p className="mb-1 text-sm font-light">Temps - {a.readingTime}</p>
-                <div className="h-px w-full bg-tt-grey-light transition-colors group-hover:bg-tt-orange" />
-              </div>
-            </Link>
-          </li>
-        ))}
-      </ul>
+                <div className="flex flex-1 flex-col p-6">
+                  <p className="text-sm text-tt-muted">
+                    {formatShortDate(a.date)}
+                    {a.readingTime && <> · {a.readingTime.replace(/(\d)\s*min/, "$1 min")} de lecture</>}
+                  </p>
+                  <h3 className="mt-3 text-xl font-bold leading-snug transition-colors group-hover:text-tt-orange">{frenchSpacing(a.title)}</h3>
+                  <span className="mt-auto flex items-center gap-2 pt-6 text-sm font-bold text-tt-orange">
+                    Lire l’article
+                    <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  </span>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 }

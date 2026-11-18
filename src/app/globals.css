@@ -3,27 +3,40 @@
 @source "../data/pages";
 
 @theme {
-  --font-sans: var(--font-source-sans), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
   /* Palette Technitoit */
   --color-tt-blue: #141e29;
   --color-tt-blue-alt: #151d28;
+  --color-tt-navy: #0e161f;
+  --color-tt-navy-soft: #1d2a38;
   --color-tt-orange: #e7540f;
+  --color-tt-orange-dark: #c8460a;
   --color-tt-orange-light: #f49e6b;
+  --color-tt-orange-soft: #fdf0e8;
   --color-tt-sky-blue: #6aa9dd;
   --color-tt-beige: #e8e2d9;
   --color-tt-beige-dark: #d4cbbd;
   --color-tt-beige-medium: #dfd8cd;
   --color-tt-sand: #ccbda5;
+  --color-tt-stone: #f7f4ef;
+  --color-tt-stone-dark: #ece6dc;
   --color-tt-grey-dark: #3c3c3b;
   --color-tt-grey-medium: #878787;
   --color-tt-grey-light: #dadada;
   --color-tt-grey-lighter: #f6f6f6;
   --color-tt-grey-bg: #f2f2f2;
   --color-tt-grey-soft: rgb(232 226 217 / 0.3);
+  --color-tt-muted: #5b6672;
+  --color-tt-line: #e6e1d8;
+
+  --shadow-soft: 0 1px 2px rgb(20 30 41 / 0.04), 0 8px 24px -12px rgb(20 30 41 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(20 30 41 / 0.04), 0 24px 48px -20px rgb(20 30 41 / 0.28);
+  --shadow-glow: 0 10px 30px -10px rgb(231 84 15 / 0.55);
 
   --animate-shimmer: shimmer 1.5s infinite;
   --animate-fade-in: fade-in 0.4s ease-out both;
+  --animate-marquee: marquee 40s linear infinite;
 
   @keyframes shimmer {
     to {
@@ -40,15 +53,33 @@
       transform: none;
     }
   }
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(28px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
 }
 
 @utility content-container {
   width: 100%;
   margin-inline: auto;
   max-width: 1280px;
-  padding-inline: 1rem;
+  padding-inline: 1.25rem;
+  @media (width >= 1024px) {
+    padding-inline: 2rem;
+  }
   @media (width >= 1536px) {
-    max-width: 1440px;
+    max-width: 1400px;
   }
 }
 
@@ -63,6 +94,25 @@
     color: var(--color-tt-blue);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  ::selection {
+    background-color: var(--color-tt-orange);
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-tt-orange);
+    outline-offset: 3px;
   }
   button:not(:disabled),
   [role="button"] {
@@ -71,52 +121,91 @@
 }
 
 @layer components {
+  /* Boutons (utilisés aussi par les pages importées du CMS) */
+  .btn-fill-orange,
+  .btn-fill-beige,
+  .btn-fill-blue,
+  .btn-outline,
+  .btn-outline-orange {
+    border-radius: 9999px;
+    font-weight: 700;
+    transition:
+      background-color 0.2s,
+      color 0.2s,
+      border-color 0.2s,
+      box-shadow 0.2s,
+      transform 0.2s;
+  }
   .btn-fill-orange {
     border: 1px solid var(--color-tt-orange);
     background-color: var(--color-tt-orange);
     color: #fff;
-    transition: background-color 0.2s, color 0.2s;
+    box-shadow: var(--shadow-glow);
   }
   .btn-fill-orange:hover {
-    background-color: #fff;
-    color: var(--color-tt-orange);
+    border-color: var(--color-tt-orange-dark);
+    background-color: var(--color-tt-orange-dark);
+    transform: translateY(-1px);
   }
   .btn-fill-beige {
-    background-color: #f1eee8;
-    color: #000;
-    transition: background-color 0.2s;
+    background-color: var(--color-tt-stone);
+    color: var(--color-tt-blue);
   }
   .btn-fill-beige:hover {
-    background-color: var(--color-tt-beige);
+    background-color: var(--color-tt-stone-dark);
   }
   .btn-fill-blue {
     border: 1px solid var(--color-tt-blue);
     background-color: var(--color-tt-blue);
     color: #fff;
-    transition: background-color 0.2s, border-color 0.2s;
   }
   .btn-fill-blue:hover {
-    border-color: var(--color-tt-sky-blue);
-    background-color: var(--color-tt-sky-blue);
+    border-color: var(--color-tt-navy-soft);
+    background-color: var(--color-tt-navy-soft);
   }
   .btn-outline {
     border-color: var(--color-tt-orange);
     color: var(--color-tt-orange);
-    transition: background-color 0.2s, color 0.2s;
   }
   .btn-outline:hover {
     background-color: var(--color-tt-orange);
     color: #fff;
   }
   .btn-outline-orange {
-    border: 1px solid var(--color-tt-orange);
+    border: 1.5px solid var(--color-tt-orange);
     color: var(--color-tt-orange);
-    font-weight: 700;
-    transition: background-color 0.5s, color 0.5s;
   }
   .btn-outline-orange:hover {
     background-color: var(--color-tt-orange);
     color: #fff;
+  }
+
+  /* Petit sur-titre de section */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-tt-orange);
+  }
+  .eyebrow::before {
+    content: "";
+    width: 1.5rem;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+  }
+
+  /* Apparition au scroll (amélioration progressive, sans JS) */
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: fade-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 22%;
+    }
   }
 
   /* Comparateur avant / après */
@@ -163,7 +252,7 @@
     transform: translateY(-50%);
     border-radius: 9999px;
     border: var(--divider-thickness) solid #fff;
-    background: #00000013 url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" height="30" width="42" viewBox="0 0 42 30"%3E%3Cpath fill="white" d="m 0 15 l 10 10 l 0 -20 z m 42 0 l -10 10 l 0 -20 z"/%3E%3C/svg%3E') center / 50% no-repeat;
+    background: rgb(231 84 15 / 0.9) url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" height="30" width="42" viewBox="0 0 42 30"%3E%3Cpath fill="white" d="m 0 15 l 10 10 l 0 -20 z m 42 0 l -10 10 l 0 -20 z"/%3E%3C/svg%3E') center / 50% no-repeat;
     box-shadow: 0 0 10px #00000040;
     backdrop-filter: blur(4px);
   }
@@ -174,7 +263,7 @@
   }
   .tt-agencies-map a:hover path,
   .tt-agencies-map a:focus-visible path {
-    fill: var(--color-tt-sand);
+    fill: var(--color-tt-orange);
   }
 
   /* Texte riche des articles (reprend les règles « tnt-rich-text » du site d'origine) */
@@ -235,9 +324,10 @@
     content: "";
     position: absolute;
     left: 0;
-    top: 0.75em;
+    top: 0.6em;
     width: 0.4375rem;
     height: 0.4375rem;
+    border-radius: 9999px;
     background-color: var(--tnt-bullet-color, var(--color-tt-orange));
   }
   .tnt-rich-text ol {
@@ -253,7 +343,9 @@
   }
   .tnt-rich-text blockquote {
     border-left: 4px solid var(--color-tt-orange);
-    padding-left: 1.25rem;
+    border-radius: 0 1rem 1rem 0;
+    background: var(--color-tt-stone);
+    padding: 1rem 1.25rem;
     font-style: italic;
   }
   .tnt-rich-text img {
@@ -302,14 +394,15 @@
 
   /* Contenu riche des pages génériques */
   .tt-prose h2 {
-    font-size: 1.875rem;
+    font-size: 1.75rem;
     font-weight: 800;
+    letter-spacing: -0.025em;
     margin-top: 2.5rem;
     margin-bottom: 1rem;
   }
   .tt-prose p {
-    font-size: 1.125rem;
-    font-weight: 300;
+    font-size: 1.0625rem;
+    color: var(--color-tt-muted);
     line-height: 1.75;
     margin-bottom: 1rem;
   }
@@ -321,8 +414,8 @@
     position: relative;
     padding-left: 1.5rem;
     margin-bottom: 0.5rem;
-    font-weight: 300;
-    font-size: 1.125rem;
+    color: var(--color-tt-muted);
+    font-size: 1.0625rem;
   }
   .tt-prose li::before {
     content: "";
@@ -331,8 +424,44 @@
     top: 0.6em;
     width: 0.5rem;
     height: 0.5rem;
+    border-radius: 9999px;
     background: var(--color-tt-orange);
   }
+}
+
+/* Habillage moderne des pages importées du CMS (sans toucher aux données JSON).
+   Les déclarations en conflit avec les utilitaires Tailwind du JSON sont en !important. */
+.tt-cms [class~="bg-[#6AA9DD]"] {
+  background: linear-gradient(90deg, rgb(14 22 31 / 0.88), rgb(14 22 31 / 0.55) 55%, rgb(14 22 31 / 0.15)) !important;
+  mix-blend-mode: normal !important;
+}
+.tt-cms [class~="bg-[#D9D9D9]/20"] {
+  background: transparent !important;
+  backdrop-filter: none !important;
+}
+.tt-cms .bg-tt-orange.absolute[class~="tracking-[.25em]"] {
+  border-radius: 9999px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+.tt-cms p.text-tt-orange.tracking-widest {
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.tt-cms img.object-cover.w-full.h-full:not(.absolute),
+.tt-cms video {
+  border-radius: 1.25rem;
+}
+.tt-cms .tnt-separator {
+  border-radius: 9999px;
+}
+.tt-cms table {
+  overflow: hidden;
+  border-radius: 1rem;
+}
+.tt-cms #configurator-anchor {
+  border-radius: 1.5rem;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { BEFORE_AFTER } from "@/data/site";
-import { ArrowRight } from "@/components/ui/icons";
+import { ArrowIcon } from "@/components/ui/icons";
 import { BeforeAfterSlider } from "./BeforeAfterSlider";
 
 type Item = { before: string; after: string; w: number; h: number; label: string; ratio?: number };
@@ -14,7 +14,7 @@ export function BeforeAfterCarousel({ items = BEFORE_AFTER }: { items?: Item[] }
 
   return (
     <div className="w-full" aria-roledescription="carrousel" aria-label="Réalisations avant / après">
-      <div className="overflow-hidden">
+      <div className="overflow-hidden rounded-3xl shadow-lift">
         <div
           className="flex transition-transform duration-500 ease-out"
           style={{ transform: `translateX(-${index * 100}%)` }}
@@ -36,15 +36,14 @@ export function BeforeAfterCarousel({ items = BEFORE_AFTER }: { items?: Item[] }
                 height={item.h}
                 label={item.label}
                 ratio={item.ratio}
-                priority={i === 0}
               />
             </div>
           ))}
         </div>
       </div>
 
-      <div className="flex items-center justify-between pl-3 pt-2">
-        <div className="flex gap-2">
+      <div className="flex items-center justify-between pt-5">
+        <div className="flex items-center gap-2">
           {items.map((item, i) => (
             <button
               key={item.before}
@@ -52,16 +51,29 @@ export function BeforeAfterCarousel({ items = BEFORE_AFTER }: { items?: Item[] }
               aria-label={`Voir la réalisation ${i + 1}`}
               aria-current={i === index}
               onClick={() => go(i)}
-              className={`size-3 rounded-full transition-colors ${i === index ? "border-2 border-tt-orange bg-white" : "bg-tt-grey-light hover:bg-tt-beige-dark"}`}
+              className={`h-2 rounded-full transition-all duration-300 ${i === index ? "w-8 bg-tt-orange" : "w-2 bg-tt-blue/20 hover:bg-tt-blue/40"}`}
             />
           ))}
+          <span className="ml-3 text-sm font-semibold text-tt-muted">
+            {String(index + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
+          </span>
         </div>
-        <div className="flex items-center">
-          <button type="button" aria-label="Réalisation précédente" onClick={() => go(index - 1)}>
-            <ArrowRight className="size-10 rotate-180 stroke-2 text-tt-grey-light transition-colors hover:text-tt-blue" />
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            aria-label="Réalisation précédente"
+            onClick={() => go(index - 1)}
+            className="grid size-12 place-items-center rounded-full border border-tt-blue/15 bg-white text-tt-blue transition-colors hover:border-tt-blue hover:bg-tt-blue hover:text-white"
+          >
+            <ArrowIcon className="size-5 rotate-180" />
           </button>
-          <button type="button" aria-label="Réalisation suivante" onClick={() => go(index + 1)} className="mr-4">
-            <ArrowRight className="size-16 stroke-2 text-tt-blue transition-colors hover:text-tt-orange" />
+          <button
+            type="button"
+            aria-label="Réalisation suivante"
+            onClick={() => go(index + 1)}
+            className="grid size-12 place-items-center rounded-full bg-tt-orange text-white transition-colors hover:bg-tt-orange-dark"
+          >
+            <ArrowIcon className="size-5" />
           </button>
         </div>
       </div>

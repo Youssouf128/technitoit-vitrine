@@ -20,7 +20,7 @@ export default function DevisPage() {
           { label: "Devis gratuit", href: "/devis-gratuit" },
         ]}
       />
-      <section className="bg-tt-grey-bg pb-24 pt-16">
+      <section className="bg-tt-stone pb-24 pt-4 lg:pt-8">
         <div id="configurator-anchor" className="content-container flex scroll-mt-32 justify-center">
           <QuoteConfigurator />
         </div>

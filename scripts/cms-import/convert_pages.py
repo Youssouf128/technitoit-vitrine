@@ -210,6 +210,17 @@ def children(n):
     return out
 
 
+def first_image(nodes):
+    for n in nodes:
+        if isinstance(n, dict):
+            if n.get("t") == "img":
+                return n
+            found = first_image(n.get("k") or [])
+            if found:
+                return found
+    return None
+
+
 def serialize(n):
     if isinstance(n, str):
         return H.escape(n, quote=False)
@@ -228,6 +239,9 @@ for slug in SLUGS:
     title = re.search(r"<title>([^<]*)</title>", raw)
     desc = re.search(r'<meta name="description" content="([^"]*)"', raw)
     tree = children(main)
+    hero = first_image(tree)  # image du bandeau = élément LCP, préchargée par CmsTree
+    if hero:
+        hero["hero"] = True
     page = {
         "path": "/" + slug,
         "title": H.unescape(title.group(1)).replace(" - Technitoit", "").replace(" | Technitoit", "").strip() if title else slug,

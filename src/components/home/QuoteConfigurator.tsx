@@ -69,13 +69,13 @@ function Card({ label, icon, checked, onClick, multiple }: { label: string; icon
       role={multiple ? "checkbox" : "radio"}
       aria-checked={checked}
       onClick={onClick}
-      className={`relative flex min-h-[200px] w-full flex-col items-center justify-center gap-6 rounded-md px-4 pb-8 pt-12 shadow-[0_2px_10px_rgba(0,0,0,0.12)] transition-shadow hover:shadow-[0_4px_16px_rgba(0,0,0,0.18)] lg:min-h-[253px] ${
-        checked ? SELECTED_BORDER : "border-2 border-transparent bg-white"
+      className={`relative flex min-h-[180px] w-full flex-col items-center justify-center gap-5 rounded-2xl px-4 pb-6 pt-10 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lift lg:min-h-[220px] ${
+        checked ? `${SELECTED_BORDER} shadow-lift` : "border-2 border-tt-line bg-white shadow-soft"
       }`}
     >
       <CheckCircle checked={checked} />
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={icon} alt="" className="size-20 lg:size-[110px]" loading="lazy" />
+      <img src={icon} alt="" className="size-20 lg:size-24" loading="lazy" />
       <span className="text-center font-bold leading-tight">{label}</span>
     </button>
   );
@@ -92,7 +92,7 @@ function CardGrid({ children, count }: { children: ReactNode; count: number }) {
 }
 
 const inputCls =
-  "w-full rounded-sm border border-gray-400 bg-white p-2 outline-none transition-colors focus:border-tt-orange";
+  "h-12 w-full rounded-xl border border-tt-beige-dark bg-white px-4 outline-none transition focus:border-tt-orange focus:ring-4 focus:ring-tt-orange/15";
 
 export function QuoteConfigurator({ className = "" }: { className?: string }) {
   const [data, setData] = useState<QuoteRequest>(EMPTY);
@@ -290,8 +290,8 @@ export function QuoteConfigurator({ className = "" }: { className?: string }) {
                 role="radio"
                 aria-checked={data.gender === g}
                 onClick={() => set("gender", g)}
-                className={`h-[62px] w-[190px] rounded-md font-bold shadow-[0_2px_10px_rgba(0,0,0,0.12)] ${
-                  data.gender === g ? SELECTED_BORDER : "border-2 border-transparent bg-white"
+                className={`h-14 w-40 rounded-xl font-bold sm:w-[190px] ${
+                  data.gender === g ? `${SELECTED_BORDER} shadow-lift` : "border-2 border-tt-line bg-white shadow-soft"
                 }`}
               >
                 {g === "madame" ? "Madame" : "Monsieur"}
@@ -335,8 +335,8 @@ export function QuoteConfigurator({ className = "" }: { className?: string }) {
     case "phone":
       question = "Quel est votre numéro de téléphone ?";
       body = (
-        <div className="flex w-full max-w-2xl items-center rounded-sm border border-gray-400 bg-white focus-within:border-tt-orange">
-          <span className="flex items-center gap-1 border-r border-gray-300 px-3 py-2 text-sm" aria-hidden>
+        <div className="flex h-12 w-full max-w-2xl items-center overflow-hidden rounded-xl border border-tt-beige-dark bg-white transition focus-within:border-tt-orange focus-within:ring-4 focus-within:ring-tt-orange/15">
+          <span className="flex h-full items-center gap-1.5 border-r border-tt-line bg-tt-stone px-3 text-sm font-semibold" aria-hidden>
             <span className="inline-block h-3 w-[18px] bg-[linear-gradient(90deg,#002395_33%,#fff_33%_66%,#ED2939_66%)]" />
             +33
           </span>
@@ -349,7 +349,7 @@ export function QuoteConfigurator({ className = "" }: { className?: string }) {
             value={data.phone}
             onChange={(e) => set("phone", e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && onContinue()}
-            className="w-full p-2 outline-none"
+            className="h-full w-full px-4 outline-none"
           />
         </div>
       );
@@ -402,44 +402,53 @@ export function QuoteConfigurator({ className = "" }: { className?: string }) {
 
   return (
     <div
-      className={`relative h-[704px] w-full max-w-screen-lg scroll-mt-32 bg-[#F4F4F4] lg:h-[512px] ${className}`}
+      className={`relative h-[704px] w-full max-w-screen-lg scroll-mt-32 overflow-hidden rounded-3xl border border-tt-line bg-white text-left shadow-lift lg:h-[512px] ${className}`}
       aria-label={T.title}
     >
-      <div className="relative flex h-full w-full flex-col pt-16 lg:flex-row">
+      <div className="relative flex h-full w-full flex-col lg:flex-row">
         {/* Titre + étapes */}
-        <div className="flex flex-col items-center lg:items-start">
-          <div className="-mt-[25px] flex h-20 w-64 bg-[#151d28] px-2 text-xl font-bold lg:-ml-[25px] lg:mt-0 lg:h-24 lg:pl-16 lg:pr-2">
-            <p className="my-auto text-center text-white lg:text-start">{T.title}</p>
-          </div>
-          <ol className="hidden h-full w-56 flex-col items-start justify-evenly lg:flex">
+        <div className="relative isolate flex shrink-0 flex-col overflow-hidden bg-tt-navy px-6 py-5 text-white lg:m-3 lg:w-72 lg:rounded-2xl lg:p-8">
+          <div aria-hidden className="absolute -bottom-24 -left-24 -z-10 size-64 rounded-full bg-tt-orange/30 blur-3xl" />
+          <p className="text-lg font-extrabold leading-tight lg:text-2xl">{T.title}</p>
+          <ol className="mt-10 hidden flex-col gap-7 lg:flex">
             {STEPS.map((s, i) => {
               const active = i === screen.step;
+              const done = i < screen.step;
               return (
-                <li key={s.title} aria-current={active ? "step" : undefined} className={`flex border-l-4 pl-6 ${active ? "border-tt-orange" : "border-tt-grey-light"}`}>
-                  <div className="flex flex-col transition-all duration-200 ease-linear">
-                    <p className="font-bold" style={active ? undefined : { color: "#D4D4D4" }}>
-                      {s.title}
-                    </p>
-                    <p className="text-xs" style={active ? undefined : { color: "#D4D4D4" }}>
-                      {s.hint}
-                    </p>
+                <li key={s.title} aria-current={active ? "step" : undefined} className="flex items-start gap-4">
+                  <span
+                    className={`grid size-8 shrink-0 place-items-center rounded-full text-sm font-bold transition-colors ${
+                      active ? "bg-tt-orange text-white" : done ? "bg-white text-tt-orange" : "bg-white/10 text-white/50"
+                    }`}
+                  >
+                    {done ? (
+                      <svg viewBox="0 0 24 24" className="size-4" fill="none" aria-hidden>
+                        <path d="M5 12.5 10 17 19 7.5" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    ) : (
+                      i + 1
+                    )}
+                  </span>
+                  <div className={`flex flex-col transition-opacity ${active || done ? "" : "opacity-50"}`}>
+                    <p className="font-bold">{s.title}</p>
+                    <p className="text-xs text-white/60">{s.hint}</p>
                   </div>
                 </li>
               );
             })}
           </ol>
-          <div className="mt-4 h-1 w-full bg-white lg:hidden" aria-hidden>
-            <div className="h-full bg-tt-orange transition-all duration-300" style={{ width: `${Math.min(100, ((screen.step + 1) / 3) * 100)}%` }} />
+          <div className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-white/15 lg:hidden" aria-hidden>
+            <div className="h-full rounded-full bg-tt-orange transition-all duration-300" style={{ width: `${Math.min(100, ((screen.step + 1) / 3) * 100)}%` }} />
           </div>
         </div>
 
         {/* Contenu */}
-        <div className="relative mb-16 mt-8 h-full w-full lg:mb-0 lg:mt-0">
+        <div className="relative min-h-0 w-full flex-1">
           {showBack && (
             <button
               type="button"
               onClick={() => go(index - 1)}
-              className="absolute left-4 top-0 z-10 flex items-center gap-2 font-light text-tt-orange lg:left-10 lg:top-1.5"
+              className="absolute left-4 top-3 z-10 flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-semibold text-tt-muted transition-colors hover:bg-tt-stone hover:text-tt-orange lg:left-8 lg:top-6"
             >
               <svg viewBox="0 0 24 12" className="h-3 w-6" fill="none" aria-hidden>
                 <path d="M23 6H1m0 0 5-5M1 6l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -447,14 +456,14 @@ export function QuoteConfigurator({ className = "" }: { className?: string }) {
               {T.back}
             </button>
           )}
-          <div ref={scrollRef} className="h-full overflow-y-auto pb-16 pt-10 lg:pb-12 lg:pt-16">
+          <div ref={scrollRef} className="h-full overflow-y-auto pb-24 pt-14 lg:pb-24 lg:pt-20">
             <div key={index} className="flex min-h-full w-full animate-fade-in flex-col items-center px-4 lg:px-10">
               {screen.step < 3 && (
-                <p className="mb-2 text-center text-sm font-light tracking-widest text-tt-orange lg:hidden">
+                <p className="mb-2 text-center text-xs font-bold tracking-[.18em] text-tt-orange lg:hidden">
                   {STEPS[screen.step].title.toUpperCase()}
                 </p>
               )}
-              {question && <p className="pb-4 text-center text-xl font-bold lg:text-2xl">{question}</p>}
+              {question && <p className="pb-6 text-center text-xl font-extrabold tracking-tight lg:text-2xl">{question}</p>}
               <div className={`flex w-full flex-1 flex-col items-center ${screen.id === "done" || screen.id.match(/^(area|postalCode|phone|email)$/) ? "justify-center" : ""}`}>
                 {body}
               </div>
@@ -467,11 +476,11 @@ export function QuoteConfigurator({ className = "" }: { className?: string }) {
             type="button"
             onClick={onContinue}
             disabled={!valid || sending}
-            className={`absolute bottom-0 left-0 z-20 flex h-12 w-full shrink-0 transition duration-300 ease-linear lg:-bottom-[25px] lg:left-auto lg:right-8 lg:w-40 ${
-              valid && !sending ? "bg-tt-orange hover:bg-[#d94c0f]" : "cursor-not-allowed bg-tt-grey-light"
+            className={`absolute inset-x-4 bottom-4 z-20 flex h-13 shrink-0 rounded-full transition duration-300 lg:left-auto lg:right-6 lg:w-48 ${
+              valid && !sending ? "bg-tt-orange shadow-glow hover:bg-tt-orange-dark" : "cursor-not-allowed bg-tt-grey-light"
             }`}
           >
-            <span className="m-auto text-center text-xl font-bold text-white">{sending ? "Envoi…" : T.continue}</span>
+            <span className="m-auto text-center text-base font-bold text-white">{sending ? "Envoi…" : T.continue}</span>
           </button>
         )}
       </div>

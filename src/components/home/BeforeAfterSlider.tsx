@@ -11,11 +11,10 @@ type Props = {
   label: string;
   /** Ratio largeur/hauteur imposé (sinon celui de l'image) */
   ratio?: number;
-  priority?: boolean;
 };
 
 /** Comparateur avant / après piloté par un <input type="range"> (souris, tactile et clavier). */
-export function BeforeAfterSlider({ before, after, width, height, label, ratio, priority }: Props) {
+export function BeforeAfterSlider({ before, after, width, height, label, ratio }: Props) {
   const [pos, setPos] = useState(50);
 
   return (
@@ -25,7 +24,6 @@ export function BeforeAfterSlider({ before, after, width, height, label, ratio, 
         alt={`${label} - avant travaux`}
         fill
         sizes="(min-width: 768px) 768px, 100vw"
-        priority={priority}
         className="object-cover"
         draggable={false}
       />
@@ -35,11 +33,17 @@ export function BeforeAfterSlider({ before, after, width, height, label, ratio, 
           alt={`${label} - après travaux`}
           fill
           sizes="(min-width: 768px) 768px, 100vw"
-          priority={priority}
           className="object-cover"
           draggable={false}
         />
       </div>
+
+      <span className="pointer-events-none absolute left-4 top-4 z-[2] rounded-full bg-tt-navy/70 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-md">
+        Avant
+      </span>
+      <span className="pointer-events-none absolute right-4 top-4 z-[2] rounded-full bg-tt-orange px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
+        Après
+      </span>
 
       <div className="ci-slider__divider" style={{ left: `${pos}%` }}>
         <div className="ci-slider__handle" />
