@@ -218,3 +218,38 @@ export const ArrowIcon = (p: P) => (
     <path d="M5 12h14M13 6l6 6-6 6" />
   </Line>
 );
+
+export const SunIcon = (p: P) => (
+  <Line {...p}>
+    <circle cx="12" cy="12" r="4" />
+    <path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4" />
+  </Line>
+);
+
+export const FlameIcon = (p: P) => (
+  <Line {...p}>
+    <path d="M12 21.5a6.5 6.5 0 0 0 6.5-6.5c0-4-3.5-6-4.5-10-2 1.5-3 3.5-3 5.5-1-.5-2-2-2-3.5C7 9 5.5 11.5 5.5 15A6.5 6.5 0 0 0 12 21.5" />
+    <path d="M12 21.5c-1.7 0-2.75-1.2-2.75-2.75 0-1.9 1.75-2.75 2.75-4.75 1 2 2.75 2.85 2.75 4.75 0 1.55-1.05 2.75-2.75 2.75" />
+  </Line>
+);
+
+export const WindIcon = (p: P) => (
+  <Line {...p}>
+    <path d="M3 8.5h10.5a2.75 2.75 0 1 0-2.75-2.75" />
+    <path d="M3 12.5h15a3 3 0 1 1-3 3" />
+    <path d="M3 16.5h7" />
+  </Line>
+);
+
+export const DropletIcon = (p: P) => (
+  <Line {...p}>
+    <path d="M12 3c3 3.6 6 7.1 6 10.6a6 6 0 0 1-12 0C6 10.1 9 6.6 12 3" />
+    <path d="M9.25 14.5a2.75 2.75 0 0 0 2.75 2.75" />
+  </Line>
+);
+
+export const PlayIcon = (p: P) => (
+  <svg viewBox="0 0 24 24" aria-hidden {...p}>
+    <path fill="currentColor" d="M8 5.14v13.72a1 1 0 0 0 1.52.85l10.98-6.86a1 1 0 0 0 0-1.7L9.52 4.29A1 1 0 0 0 8 5.14" />
+  </svg>
+);

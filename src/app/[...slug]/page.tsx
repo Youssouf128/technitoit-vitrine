@@ -16,8 +16,13 @@ type Props = { params: Promise<{ slug: string[] }> };
 // prérendue au build : la navigation attend la page plutôt que d'afficher un squelette vide.
 export const instant = false;
 
+// Pages qui ont leur propre route (app/<chemin>/page.tsx)
+const DEDICATED_ROUTES = new Set(["/energie"]);
+
 export function generateStaticParams() {
-  return allGenericPaths().map((p) => ({ slug: p.slice(1).split("/") }));
+  return allGenericPaths()
+    .filter((p) => !DEDICATED_ROUTES.has(p))
+    .map((p) => ({ slug: p.slice(1).split("/") }));
 }
 
 const toPath = (slug: string[]) => `/${slug.map(decodeURIComponent).join("/")}`;
