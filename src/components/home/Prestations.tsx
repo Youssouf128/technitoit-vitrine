@@ -6,7 +6,7 @@ import { ArrowIcon, ArrowUpRight } from "@/components/ui/icons";
 
 export function Prestations() {
   return (
-    <section aria-labelledby="prestations-title" className="py-24 lg:py-32">
+    <section aria-labelledby="prestations-title" className="pb-24 pt-20 lg:pb-32 lg:pt-24">
       <div className="content-container">
         <div className="mb-12 flex flex-col justify-between gap-6 lg:mb-16 lg:flex-row lg:items-end">
           <SectionTitle

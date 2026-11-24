@@ -3,7 +3,7 @@ import { SITE } from "@/data/site";
 
 const STATS = [
   { value: "+20", unit: "ans", label: "d'expertise en rénovation" },
-  { value: String(SITE.agencies), unit: "agences", label: "partout en France" },
+  { value: String(SITE.agencies), unit: "", label: "agences en France" },
   { value: SITE.rating.toLocaleString("fr-FR", { minimumFractionDigits: 1 }), unit: "/5", label: "de satisfaction client" },
   { value: "100", unit: "%", label: "d'installateurs certifiés RGE*" },
 ];
@@ -22,16 +22,16 @@ const AWARDS = [
 /** Bandeau de chiffres clés qui chevauche le hero. */
 export function Stats() {
   return (
-    <section aria-label="Technitoit en chiffres" className="relative z-10 -mt-12 lg:-mt-16">
+    <section aria-label="Technitoit en chiffres" className="relative z-10 pt-12 lg:pt-16">
       <div className="content-container">
         <div className="grid items-center gap-6 rounded-3xl border border-tt-line bg-white p-6 shadow-lift sm:p-8 lg:grid-cols-[1fr_auto] lg:gap-10 lg:p-10">
           <dl className="grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-4 lg:gap-0 lg:divide-x lg:divide-tt-line">
             {STATS.map((s) => (
-              <div key={s.label} className="flex flex-col-reverse lg:px-8 lg:first:pl-0">
+              <div key={s.label} className="flex flex-col-reverse justify-end lg:px-6 lg:first:pl-0 xl:px-8">
                 <dt className="mt-1 text-sm leading-snug text-tt-muted">{s.label}</dt>
-                <dd className="text-4xl font-extrabold tracking-tight text-tt-blue lg:text-5xl">
+                <dd className="whitespace-nowrap text-4xl font-extrabold tracking-tight text-tt-blue xl:text-5xl">
                   {s.value}
-                  <span className="ml-1 text-xl font-bold text-tt-orange lg:text-2xl">{s.unit}</span>
+                  {s.unit && <span className="ml-1 text-lg font-bold text-tt-orange xl:text-xl">{s.unit}</span>}
                 </dd>
               </div>
             ))}

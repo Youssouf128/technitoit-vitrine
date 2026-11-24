@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PhotoBackdrop } from "@/components/ui/PhotoBackdrop";
 import { Accent, SectionTitle } from "@/components/ui/SectionTitle";
 import { ArrowIcon, ClipboardIcon, HomeSearchIcon, ShieldCheckIcon, ToolsIcon } from "@/components/ui/icons";
 
@@ -28,11 +29,8 @@ const STEPS = [
 export function Process() {
   return (
     <section aria-labelledby="process-title" className="relative isolate overflow-hidden bg-tt-navy py-24 text-white lg:py-32">
-      <div aria-hidden className="absolute -right-40 -top-40 -z-10 size-[560px] rounded-full bg-tt-orange/20 blur-[150px]" />
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 opacity-[0.07] [background-image:linear-gradient(white_1px,transparent_1px),linear-gradient(90deg,white_1px,transparent_1px)] [background-size:64px_64px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]"
-      />
+      <PhotoBackdrop src="/images/pages/a2c5611d03-facade_chantier_hydrofuge_facade.jpg" />
+      <div aria-hidden className="absolute -right-40 -top-40 -z-10 size-[560px] rounded-full bg-tt-orange/15 blur-[150px]" />
 
       <div className="content-container">
         <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">

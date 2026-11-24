@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { PhotoBackdrop } from "@/components/ui/PhotoBackdrop";
 import { Breadcrumbs } from "@/components/layout/PageHero";
 import { QuoteSection } from "@/components/layout/QuoteSection";
 import { Accent, SectionTitle } from "@/components/ui/SectionTitle";
 import { EnergySolutions } from "@/components/energie/EnergySolutions";
 import { THEME_ICONS } from "@/components/energie/themeIcons";
-import { EnergyVideo } from "@/components/energie/EnergyVideo";
+import { SectionNav } from "@/components/sections/SectionNav";
+import { ShowcaseVideo } from "@/components/sections/ShowcaseVideo";
+import { TrustStrip } from "@/components/sections/TrustStrip";
 import { ArrowIcon, CheckIcon, EuroIcon, LeafIcon, ShieldCheckIcon, SparkleIcon, SunIcon } from "@/components/ui/icons";
-import { ENERGY_SOLUTIONS, ENERGY_THEMES } from "@/data/energie";
+import { ENERGY_SOLUTIONS, ENERGY_THEMES, ENERGY_VIDEOS } from "@/data/energie";
 
 export const metadata: Metadata = {
   title: { absolute: "Rénovation énergétique : Réduisez votre consommation & vos factures ! | Technitoit" },
@@ -17,26 +20,15 @@ export const metadata: Metadata = {
   alternates: { canonical: "/energie" },
 };
 
+const SECTIONS = [
+  { id: "solutions", label: "Nos solutions" },
+  { id: "benefices", label: "Bénéfices" },
+  { id: "conseils", label: "Conseils" },
+] as const;
+
 const CRUMBS = [
   { label: "Accueil", href: "/" },
   { label: "Rénovation énergétique", href: "/energie" },
-];
-
-const BADGES = [
-  { src: "/images/entreprise_francaise.svg", alt: "Entreprise française", w: 128, h: 126 },
-  { src: "/images/80_agences.svg", alt: "80 agences en France", w: 126, h: 126 },
-  { src: "/images/20_ans.svg", alt: "Plus de 20 ans à vos côtés", w: 125, h: 126 },
-];
-
-const AWARDS = [
-  {
-    src: "/images/pages/84bff5eb10-technitoit-meilleure-chaine-magasin-2026.png",
-    alt: "technitoit élu meilleure chaîne de magasins de l'année, catégorie renovation de l'habitat",
-  },
-  {
-    src: "/images/pages/c404aae300-technitoit-meilleure-franchise-2026.png",
-    alt: "technitoit élu meilleure franchise de l'année, catégorie renovation de l'habitat",
-  },
 ];
 
 const BENEFITS = [
@@ -79,7 +71,7 @@ export default function EnergiePage() {
         <div aria-hidden className="absolute inset-x-0 bottom-0 -z-10 h-56 bg-gradient-to-t from-tt-navy to-transparent" />
         <div aria-hidden className="absolute -left-32 bottom-0 -z-10 size-[480px] rounded-full bg-tt-orange/25 blur-[140px]" />
 
-        <div className="content-container grid items-end gap-12 pb-28 pt-32 lg:min-h-[min(92svh,880px)] lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-16 lg:pb-36 lg:pt-40">
+        <div className="content-container grid items-end gap-12 pb-20 pt-32 lg:min-h-[min(88svh,840px)] lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-16 lg:pb-24 lg:pt-40">
           <div className="animate-fade-in">
             <Breadcrumbs crumbs={CRUMBS} light />
             <p className="mt-8 inline-flex items-center gap-2 rounded-full bg-tt-orange px-4 py-1.5 text-xs font-bold uppercase tracking-[.18em]">
@@ -138,38 +130,10 @@ export default function EnergiePage() {
         </div>
       </section>
 
-      {/* Confiance */}
-      <section aria-label="Nos garanties" className="relative z-10 -mt-14 lg:-mt-20">
-        <div className="content-container">
-          <div className="flex flex-col items-center gap-6 rounded-3xl border border-tt-line bg-white p-6 shadow-lift sm:p-8 lg:flex-row lg:justify-between lg:gap-10 lg:px-10">
-            <div className="flex flex-wrap items-center justify-center gap-4 lg:gap-6">
-              {BADGES.map((b) => (
-                <Image key={b.src} src={b.src} alt={b.alt} width={b.w} height={b.h} unoptimized className="size-16 lg:size-20" />
-              ))}
-              {AWARDS.map((a) => (
-                <Image key={a.src} src={a.src} alt={a.alt} width={200} height={200} className="size-16 rounded-xl lg:size-20" />
-              ))}
-            </div>
-            <a
-              href="https://france-renov.gouv.fr/servicepublic"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block w-full max-w-sm shrink-0 overflow-hidden rounded-2xl border border-tt-line p-1.5 transition-shadow hover:shadow-soft"
-            >
-              <Image
-                src="/images/pages/7edb12836c-bandeau_france_renov__website_700x150px.png"
-                alt="Avant de vous engager, le service public vous informe gratuitement pour préparer et sécuriser votre projet : france-renov.gouv.fr"
-                width={701}
-                height={151}
-                className="h-auto w-full"
-              />
-            </a>
-          </div>
-        </div>
-      </section>
+      <TrustStrip />
 
       {/* Introduction + vidéo */}
-      <section aria-labelledby="intro-title" className="py-24 lg:py-32">
+      <section aria-labelledby="intro-title" className="pb-20 pt-20 lg:pb-24 lg:pt-24">
         <div className="content-container grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div>
             <SectionTitle
@@ -204,13 +168,20 @@ export default function EnergiePage() {
             </Link>
           </div>
           <div className="reveal">
-            <EnergyVideo />
+            <ShowcaseVideo
+              landscape={ENERGY_VIDEOS.landscape}
+              portrait={ENERGY_VIDEOS.portrait}
+              poster="/images/pages/19d1acdfda-panneaux_solaires.jpg"
+              title="La rénovation énergétique avec Technitoit"
+            />
           </div>
         </div>
       </section>
 
+      <SectionNav items={SECTIONS} />
+
       {/* Solutions */}
-      <section id="solutions" aria-labelledby="solutions-title" className="scroll-mt-24 bg-tt-stone py-24 lg:py-32">
+      <section id="solutions" aria-labelledby="solutions-title" className="scroll-mt-36 bg-tt-stone py-24 lg:py-32">
         <div className="content-container">
           <div className="mb-10 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
             <SectionTitle
@@ -218,7 +189,7 @@ export default function EnergiePage() {
               eyebrow="Nos solutions"
               title={
                 <>
-                  Produire, chauffer, respirer : <Accent>la bonne solution pour chaque besoin.</Accent>
+                  Produire, chauffer, respirer : <Accent>la bonne solution pour chaque besoin.</Accent>
                 </>
               }
             />
@@ -231,12 +202,9 @@ export default function EnergiePage() {
       </section>
 
       {/* Bénéfices */}
-      <section aria-labelledby="benefits-title" className="relative isolate overflow-hidden bg-tt-navy py-24 text-white lg:py-32">
-        <div aria-hidden className="absolute -right-40 -top-40 -z-10 size-[560px] rounded-full bg-tt-orange/20 blur-[150px]" />
-        <div
-          aria-hidden
-          className="absolute inset-0 -z-10 opacity-[0.07] [background-image:linear-gradient(white_1px,transparent_1px),linear-gradient(90deg,white_1px,transparent_1px)] [background-size:64px_64px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]"
-        />
+      <section id="benefices" aria-labelledby="benefits-title" className="relative isolate scroll-mt-36 overflow-hidden bg-tt-navy py-24 text-white lg:py-32">
+        <PhotoBackdrop src="/images/pages/19d1acdfda-panneaux_solaires.jpg" />
+        <div aria-hidden className="absolute -right-40 -top-40 -z-10 size-[560px] rounded-full bg-tt-orange/15 blur-[150px]" />
         <div className="content-container">
           <SectionTitle
             id="benefits-title"
@@ -266,9 +234,9 @@ export default function EnergiePage() {
       </section>
 
       {/* Conseils */}
-      <section aria-labelledby="advice-title" className="py-24 lg:py-32">
+      <section id="conseils" aria-labelledby="advice-title" className="scroll-mt-36 py-24 lg:py-32">
         <div className="content-container grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
-          <div className="lg:sticky lg:top-28 lg:self-start">
+          <div className="lg:sticky lg:top-40 lg:self-start">
             <SectionTitle
               id="advice-title"
               eyebrow="Nos conseils"

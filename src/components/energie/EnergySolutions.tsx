@@ -8,24 +8,8 @@ import { ENERGY_SOLUTIONS, ENERGY_THEMES, type EnergyTheme } from "@/data/energi
 /** Solutions mises en avant (carte double largeur) quand aucun filtre n’est actif. */
 const FEATURED = new Set(["/energie/pompe-a-chaleur-air-eau", "/energie/panneaux-solaires"]);
 import { ArrowIcon } from "@/components/ui/icons";
+import { RichText } from "@/components/ui/RichText";
 import { THEME_ICONS } from "./themeIcons";
-
-/** « texte **gras** texte » -> nœuds React. */
-function RichText({ text }: Readonly<{ text: string }>) {
-  return (
-    <>
-      {text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
-        part.startsWith("**") ? (
-          <strong key={i} className="font-semibold text-tt-blue">
-            {part.slice(2, -2)}
-          </strong>
-        ) : (
-          part
-        ),
-      )}
-    </>
-  );
-}
 
 const themeLabel = (id: EnergyTheme) => ENERGY_THEMES.find((t) => t.id === id)?.label ?? id;
 
@@ -119,8 +103,8 @@ export function EnergySolutions() {
                   id={`sol-${s.href}`}
                   className={`mt-3 space-y-3 text-[15px] leading-relaxed text-tt-muted ${open ? "" : featured ? "line-clamp-6" : "line-clamp-4"}`}
                 >
-                  {s.text.map((p) => (
-                    <p key={p.slice(0, 24)}>
+                  {s.text.map((p, i) => (
+                    <p key={i}>
                       <RichText text={p} />
                     </p>
                   ))}

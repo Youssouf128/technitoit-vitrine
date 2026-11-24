@@ -2,16 +2,21 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { ENERGY_VIDEOS } from "@/data/energie";
 import { PlayIcon } from "@/components/ui/icons";
 
-/** Vidéo de présentation : vignette légère, la vidéo n'est chargée qu'au clic. */
-export function EnergyVideo() {
+type Props = {
+  landscape: string;
+  portrait: string;
+  poster: string;
+  title: string;
+};
+
+/** Vidéo de présentation : vignette légère, la vidéo (paysage ou portrait selon l'écran) n'est chargée qu'au clic. */
+export function ShowcaseVideo({ landscape, portrait, poster, title }: Readonly<Props>) {
   const [src, setSrc] = useState<string | null>(null);
 
   function play() {
-    const portrait = window.matchMedia("(max-width: 767px)").matches;
-    setSrc(portrait ? ENERGY_VIDEOS.portrait : ENERGY_VIDEOS.landscape);
+    setSrc(window.matchMedia("(max-width: 767px)").matches ? portrait : landscape);
   }
 
   return (
@@ -19,9 +24,9 @@ export function EnergyVideo() {
       {src ? (
         <video src={src} className="size-full object-cover" controls autoPlay playsInline />
       ) : (
-        <button type="button" onClick={play} className="group absolute inset-0 isolate text-white" aria-label="Lire la vidéo de présentation">
+        <button type="button" onClick={play} className="group absolute inset-0 isolate text-white" aria-label={`Lire la vidéo : ${title}`}>
           <Image
-            src="/images/pages/19d1acdfda-panneaux_solaires.jpg"
+            src={poster}
             alt=""
             fill
             sizes="(min-width: 1024px) 640px, 100vw"
@@ -32,9 +37,9 @@ export function EnergyVideo() {
             <span aria-hidden className="absolute inset-0 animate-ping rounded-full bg-tt-orange/40 motion-reduce:animate-none" />
             <PlayIcon className="relative ml-1 size-8" />
           </span>
-          <span className="absolute bottom-6 left-6 text-left">
+          <span className="absolute bottom-6 left-6 right-6 text-left">
             <span className="block text-xs font-bold uppercase tracking-[.18em] text-tt-orange-light">En vidéo</span>
-            <span className="mt-1 block text-lg font-bold">La rénovation énergétique avec Technitoit</span>
+            <span className="mt-1 block text-lg font-bold">{title}</span>
           </span>
         </button>
       )}

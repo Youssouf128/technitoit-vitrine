@@ -46,10 +46,6 @@ export function PageHero({ title, crumbs, image, subtitle }: Props) {
     return (
       <section className="relative isolate overflow-hidden bg-tt-stone">
         <div aria-hidden className="absolute -right-32 -top-32 -z-10 size-[420px] rounded-full bg-tt-orange/15 blur-[110px]" />
-        <div
-          aria-hidden
-          className="absolute inset-0 -z-10 opacity-[0.35] [background-image:linear-gradient(var(--color-tt-line)_1px,transparent_1px),linear-gradient(90deg,var(--color-tt-line)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:linear-gradient(to_bottom,black,transparent)]"
-        />
         <div className="content-container py-14 lg:py-20">
           <Breadcrumbs crumbs={crumbs} />
           <h1 className="mt-6 max-w-4xl text-4xl font-extrabold leading-[1.05] md:text-6xl">{title}</h1>

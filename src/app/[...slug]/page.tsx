@@ -17,7 +17,7 @@ type Props = { params: Promise<{ slug: string[] }> };
 export const instant = false;
 
 // Pages qui ont leur propre route (app/<chemin>/page.tsx)
-const DEDICATED_ROUTES = new Set(["/energie"]);
+const DEDICATED_ROUTES = new Set(["/energie", "/renovation-toiture", "/renovation-facade", "/isolation", "/amenagement-exterieur"]);
 
 export function generateStaticParams() {
   return allGenericPaths()
